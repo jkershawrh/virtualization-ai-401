@@ -1,0 +1,12 @@
+operationsAdapter:
+  image:
+    repository: ghcr.io/jkershawrh/virtualization-ai-401-operations-adapter
+    tag: 255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81
+    digest: sha256:2e68e78c81b5be284160145191c0ca138b057d0859a74d99dd53de4374996ffa
+    pullPolicy: IfNotPresent
+presentation:
+  image:
+    repository: ghcr.io/jkershawrh/virtualization-ai-401-presentation
+    tag: 255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81
+    digest: sha256:3b380eb7e46e82f95317e303d56898787d528bbac9272f6bdaa4f6d19a02920c
+    pullPolicy: IfNotPresent

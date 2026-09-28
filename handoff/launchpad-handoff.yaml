@@ -2,12 +2,12 @@ version: 1
 status: PROPOSED_NOT_CERTIFIED
 source:
   repository: https://github.com/jkershawrh/virtualization-ai-401
-  revision: TO_BE_FILLED_BY_RELEASE_RECEIPT
+  revision: 255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81
   prerequisite: https://github.com/jkershawrh/virtualization-ai-301@91e30a4af72bb4a15a4e5dfe2f29abb5692c698f
 candidate:
   outcome: Operate Hybrid VM and AI Workloads
-  presentation_image: TO_BE_FILLED_BY_RELEASE_RECEIPT
-  operations_adapter_image: TO_BE_FILLED_BY_RELEASE_RECEIPT
+  presentation_image: ghcr.io/jkershawrh/virtualization-ai-401-presentation@sha256:3b380eb7e46e82f95317e303d56898787d528bbac9272f6bdaa4f6d19a02920c
+  operations_adapter_image: ghcr.io/jkershawrh/virtualization-ai-401-operations-adapter@sha256:2e68e78c81b5be284160145191c0ca138b057d0859a74d99dd53de4374996ffa
   platform: linux/amd64
   default_source_state: REHEARSAL
 catalog:
@@ -26,6 +26,7 @@ evidence_hashes:
   contracts: sha256:9cecd8a2cd297d8e782e09e98dfac4282b8701eedc0e0f4cb45d6d3517be2b62
   rehearsal_journey: sha256:710aadf2405fc2bc1983fedd0022f80890aefb92ed750385dbe6e7e67f3d9eae
   zero_residue: sha256:7350e0590fbed53b57244aea90842aa8f1628dd0d75f0c796a8e51050200240a
+  immutable_release: sha256:9e4a900bee647a5330340ea94a88090d1b9fe0e64fa932aecb143aaa41f07379
 required_validation:
   - Confirm target OpenShift and OpenShift Virtualization identities and namespace isolation.
   - Observe a planned migration and recovery validation without granting the adapter mutation authority.

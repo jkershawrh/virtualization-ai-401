@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/jkershawrh/virtualization-ai-401",
+  "source_revision": "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81",
+  "workflow_run": "https://github.com/jkershawrh/virtualization-ai-401/actions/runs/36499417582",
+  "platform": "linux/amd64",
+  "images": {
+    "presentation": {
+      "reference": "ghcr.io/jkershawrh/virtualization-ai-401-presentation@sha256:3b380eb7e46e82f95317e303d56898787d528bbac9272f6bdaa4f6d19a02920c",
+      "visibility": "private",
+      "critical": 0,
+      "high": 0,
+      "medium": 4,
+      "spdx_packages": 26,
+      "exact_digest_pull_verified": true,
+      "source_label_verified": true,
+      "keyless_signature_verified": true,
+      "spdx_attestation_verified": true,
+      "slsa_provenance_verified": true
+    },
+    "operations_adapter": {
+      "reference": "ghcr.io/jkershawrh/virtualization-ai-401-operations-adapter@sha256:2e68e78c81b5be284160145191c0ca138b057d0859a74d99dd53de4374996ffa",
+      "visibility": "private",
+      "critical": 0,
+      "high": 0,
+      "medium": 6,
+      "spdx_packages": 32,
+      "exact_digest_pull_verified": true,
+      "source_label_verified": true,
+      "keyless_signature_verified": true,
+      "spdx_attestation_verified": true,
+      "slsa_provenance_verified": true
+    }
+  },
+  "factory_authority": {"certified": false, "promoted": false}
+}
