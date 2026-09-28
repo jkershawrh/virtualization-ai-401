@@ -68,8 +68,8 @@ proposed_launchpad_intake:
     shared_blueprint: red-hat-intel-virtualization-ai-v1
     solution_family: virtualization_ai
   sources:
-    showroom: {repo_url: https://github.com/jkershawrh/virtualization-ai-401, revision: "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81", playbook: showroom/default-site.yml, start_path: showroom}
-    workload: {repo_url: https://github.com/jkershawrh/virtualization-ai-401, revision: "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81", deploy_path: charts/virtualization-ai-401}
+    showroom: {repo_url: "https://github.com/jkershawrh/virtualization-ai-401", revision: "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81", playbook: showroom/default-site.yml, start_path: showroom}
+    workload: {repo_url: "https://github.com/jkershawrh/virtualization-ai-401", revision: "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81", deploy_path: charts/virtualization-ai-401}
   runtime:
     deployment_type: helm
     deployment_class: shared_namespace
