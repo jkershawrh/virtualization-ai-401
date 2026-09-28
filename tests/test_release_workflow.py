@@ -30,8 +30,9 @@ class ReleaseWorkflowTests(unittest.TestCase):
         for forbidden in ("api_key:", "password:", "token:", "bearer "):
             self.assertNotIn(forbidden, text)
         handoff = yaml.safe_load(text)
-        self.assertFalse(handoff["authority"]["certified"])
-        self.assertFalse(handoff["authority"]["promoted"])
+        authority = handoff["factory_receipt"]["authority"]
+        self.assertFalse(authority["certified"])
+        self.assertFalse(authority["promotion_eligible"])
 
 
 if __name__ == "__main__":

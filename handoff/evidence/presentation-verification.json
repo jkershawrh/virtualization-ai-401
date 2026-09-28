@@ -1,0 +1,19 @@
+{
+  "schema_version": "demo-story.redhat-intel.com/presentation-verification/v1",
+  "source_revision": "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81",
+  "source_state": "REHEARSAL",
+  "checks": {
+    "factory_check": "PASS",
+    "stage_1920x1080": "PASS",
+    "laptop_1440x900": "PASS",
+    "mobile_rehearsal": "PASS",
+    "offline_assets": "PASS",
+    "keyboard_and_presenter_controls": "PASS",
+    "seven_scene_no_clipping": "PASS",
+    "presentation_showroom_separation": "PASS"
+  },
+  "live_runtime_claimed": false,
+  "launchpad_trusted_render_claimed": false,
+  "certified": false,
+  "promotion_eligible": false
+}

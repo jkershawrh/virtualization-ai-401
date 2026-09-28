@@ -2,5 +2,7 @@ status: PROPOSED_NOT_CERTIFIED
 certification_authority: Launchpad
 factory_authority: none
 orderable: false
+certified: false
+promotion_eligible: false
 max_seats: 0
 required_receipts: [source, presentation, lab, runtime, capacity, restart, reclaim, supply-chain]

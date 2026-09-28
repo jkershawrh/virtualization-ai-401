@@ -1,0 +1,18 @@
+{
+  "schema_version": "demo-story.redhat-intel.com/artifact-release/v1",
+  "component": "presentation",
+  "source_repository": "https://github.com/jkershawrh/virtualization-ai-401",
+  "source_revision": "255e6ba2ff6f8fd4734a9af7c0de3d6130abfd81",
+  "workflow_run": "https://github.com/jkershawrh/virtualization-ai-401/actions/runs/36499417582",
+  "image": "ghcr.io/jkershawrh/virtualization-ai-401-presentation@sha256:3b380eb7e46e82f95317e303d56898787d528bbac9272f6bdaa4f6d19a02920c",
+  "architecture": "linux/amd64",
+  "scan": {"critical": 0, "high": 0, "medium": 4},
+  "spdx_sbom_attested": true,
+  "keyless_signature_verified": true,
+  "slsa_provenance_verified": true,
+  "exact_digest_pull_verified": true,
+  "source_label_verified": true,
+  "authoritative_release_receipt": {"path": "evidence/immutable-release.json", "sha256": "9e4a900bee647a5330340ea94a88090d1b9fe0e64fa932aecb143aaa41f07379"},
+  "certified": false,
+  "promotion_eligible": false
+}
