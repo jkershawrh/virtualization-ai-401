@@ -1,0 +1,37 @@
+{
+  "name": "virtualization-ai-301",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "test:factory": "python3 -m unittest discover -s tests -v",
+    "lint:helm": "helm lint charts/virtualization-ai-301 && helm template virtualization-ai-301 charts/virtualization-ai-301 >/dev/null",
+    "validate:blueprint": "node scripts/validate-blueprint.mjs demo-blueprint.yaml",
+    "test:visual": "playwright test",
+    "verify:offline": "node scripts/verify-offline.mjs",
+    "check": "npm run validate:blueprint && npm run test:factory && npm run lint:helm && npm run test && npm run build && npm run verify:offline",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.12",
+    "motion": "^12.40.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^29.1.1",
+    "typescript": "~6.0.2",
+    "vitest": "^4.1.8"
+  }
+}

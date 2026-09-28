@@ -1,0 +1,14 @@
+= 7. Reclaim and prove residue
+
+Before deletion, inventory objects carrying
+`lab.redhat.com/candidate=virtualization-ai-301`. Uninstall the release and
+remove only resources created for your candidate namespace.
+
+Repeat the labeled inventory. The acceptance result is zero matching
+Deployments, Pods, Services, Routes, NetworkPolicies, ServiceAccounts,
+VirtualMachines, and ServiceMonitors. Preserve the command, timestamp,
+namespace, and empty result.
+
+Do not delete shared Secrets, operators, CRDs, storage classes, nodes, or
+roadshow resources. Factory source tests do not substitute for this target
+zero-residue receipt.

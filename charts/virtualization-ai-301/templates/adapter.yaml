@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: virtualization-ai-301-adapter
+  labels:
+    app.kubernetes.io/name: virtualization-ai-301-adapter
+    {{- include "virtualization-ai-301.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.adapter.replicas }}
+  selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-301-adapter}}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: virtualization-ai-301-adapter
+        {{- include "virtualization-ai-301.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: virtualization-ai-301
+      automountServiceAccountToken: false
+      nodeSelector: {{- toYaml .Values.adapter.placement.nodeSelector | nindent 8 }}
+      securityContext: {runAsNonRoot: true, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: adapter
+          image: {{ include "virtualization-ai-301.image" .Values.adapter.image | quote }}
+          imagePullPolicy: {{ .Values.adapter.image.pullPolicy }}
+          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: [ALL]}}
+          ports: [{name: http, containerPort: 8080}]
+          env:
+            - {name: ADAPTER_MODE, value: {{ .Values.adapter.mode | quote }}}
+            {{- if .Values.adapter.model.secretName }}
+            - {name: MODEL_ENDPOINT, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.endpointKey | quote }}}}}
+            - {name: MODEL_ID, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.modelKey | quote }}}}}
+            - {name: MODEL_PROVIDER, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.providerKey | quote }}}}}
+            - {name: MODEL_HARDWARE, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.hardwareKey | quote }}}}}
+            - {name: MODEL_API_KEY, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.apiKeyKey | quote }}}}}
+            {{- end }}
+          readinessProbe: {httpGet: {path: /healthz, port: http}, initialDelaySeconds: 2, periodSeconds: 5}
+          livenessProbe: {httpGet: {path: /healthz, port: http}, initialDelaySeconds: 5, periodSeconds: 10}
+          resources: {{- toYaml .Values.adapter.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: virtualization-ai-301-adapter
+  labels:
+    app.kubernetes.io/name: virtualization-ai-301-adapter
+    {{- include "virtualization-ai-301.labels" . | nindent 4 }}
+spec:
+  selector: {app.kubernetes.io/name: virtualization-ai-301-adapter}
+  ports: [{name: http, port: 8080, targetPort: http}]

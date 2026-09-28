@@ -1,0 +1,4 @@
+status: PROPOSED_NOT_CERTIFIED
+certification_authority: Launchpad
+factory_authority: none
+required_receipts: [source, presentation, lab, runtime, capacity, restart, reclaim, supply-chain]

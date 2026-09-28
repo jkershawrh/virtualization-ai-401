@@ -1,0 +1,6 @@
+apiVersion: v2
+name: virtualization-ai-301
+description: Governed VM modernization development candidate
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

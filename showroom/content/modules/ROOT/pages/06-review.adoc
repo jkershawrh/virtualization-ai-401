@@ -1,0 +1,14 @@
+= 6. Record human authority
+
+Name the reviewer. Map each claim to its evidence identifier and record limits:
+platform version, operator version, namespace, labels, source state, model
+identity, hardware identity, and unmeasured behavior.
+
+The reviewer chooses `ACCEPT_FOR_FURTHER_VALIDATION` or `REJECT`. Neither choice
+is Launchpad certification, product support, production approval, or artifact
+promotion. The adapter never writes this decision.
+
+Restart the adapter in the target development environment and repeat one
+allowed plus one refused request. Verify counters reset or resume exactly as
+the approved design states; the reference in-memory adapter intentionally
+resets and makes no durable-state claim.

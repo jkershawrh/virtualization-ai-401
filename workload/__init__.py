@@ -1,0 +1,1 @@
+"""Governed modernization adapter."""

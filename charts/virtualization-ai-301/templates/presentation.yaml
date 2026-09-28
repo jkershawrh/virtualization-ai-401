@@ -1,0 +1,35 @@
+{{- if .Values.presentation.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: virtualization-ai-301-presentation
+  labels:
+    app.kubernetes.io/name: virtualization-ai-301-presentation
+    {{- include "virtualization-ai-301.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-301-presentation}}
+  template:
+    metadata: {labels: {app.kubernetes.io/name: virtualization-ai-301-presentation, lab.redhat.com/candidate: virtualization-ai-301}}
+    spec:
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: presentation
+          image: {{ include "virtualization-ai-301.image" .Values.presentation.image | quote }}
+          imagePullPolicy: {{ .Values.presentation.image.pullPolicy }}
+          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: [ALL]}}
+          ports: [{name: http, containerPort: 8080}]
+          readinessProbe: {httpGet: {path: /, port: http}}
+          resources: {{- toYaml .Values.presentation.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: virtualization-ai-301-presentation, labels: {lab.redhat.com/candidate: virtualization-ai-301}}
+spec: {selector: {app.kubernetes.io/name: virtualization-ai-301-presentation}, ports: [{name: http, port: 8080, targetPort: http}]}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata: {name: virtualization-ai-301, labels: {lab.redhat.com/candidate: virtualization-ai-301}}
+spec: {to: {kind: Service, name: virtualization-ai-301-presentation}, port: {targetPort: http}, tls: {termination: edge, insecureEdgeTerminationPolicy: Redirect}}
+{{- end }}

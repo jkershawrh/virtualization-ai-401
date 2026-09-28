@@ -1,0 +1,18 @@
+openapi: 3.1.0
+info: {title: Virtualization and AI 301 governed adapter, version: 1.0.0}
+paths:
+  /api/v1/modernize:
+    post:
+      summary: Evaluate one typed modernization request
+      responses: {'200': {description: Typed allow review refusal or abstention}}
+  /api/v1/evidence/{evidence_id}:
+    get:
+      parameters: [{name: evidence_id, in: path, required: true, schema: {type: string, format: uuid}}]
+      responses: {'200': {description: Redacted correlated evidence record}, '404': {description: Not found}}
+  /metrics:
+    get:
+      summary: Decision counters only; no performance metrics
+      responses: {'200': {description: OpenMetrics text}}
+  /healthz:
+    get:
+      responses: {'200': {description: Mode identity and authority state}}

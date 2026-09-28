@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: adapter-default-deny
+  labels: {{- include "virtualization-ai-301.labels" . | nindent 4 }}
+spec:
+  podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-301-adapter}}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-declared-adapter-path
+  labels: {{- include "virtualization-ai-301.labels" . | nindent 4 }}
+spec:
+  podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-301-adapter}}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector: {matchLabels: {kubevirt.io: virt-launcher, vm.kubevirt.io/name: {{ .Values.vm.name }}}}
+        - podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-301-presentation}}
+      ports: [{protocol: TCP, port: 8080}]
+  egress:
+    - to:
+        - namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: openshift-dns}}
+      ports: [{protocol: UDP, port: 53}, {protocol: TCP, port: 53}]
+    {{- if .Values.adapter.model.egressCIDR }}
+    - to: [{ipBlock: {cidr: {{ .Values.adapter.model.egressCIDR | quote }}}}]
+      ports: [{protocol: TCP, port: 443}]
+    {{- end }}

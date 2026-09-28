@@ -1,0 +1,18 @@
+= Modernize VMs with Governed AI
+
+This 90–120 minute level-301 lab starts from the completed 201 VM-to-AI
+contract. You will declare identity, network, placement, observability, and
+authority policy; compare it with independent observations; exercise
+`ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN`; and reclaim every candidate resource.
+
+The model is advisory. It cannot run tools, change the VM, migrate workloads,
+approve evidence, certify the lab, or promote artifacts. Factory fixtures are
+`REHEARSAL`; only a complete current-session target receipt may say `LIVE`.
+
+== Deliverables
+
+* one versioned request and policy;
+* allowed, refused, abstained, and model-unavailable records;
+* bounded decision counters (not a platform benchmark);
+* a named human accept/reject worksheet; and
+* before/after resource inventories showing zero labeled residue.

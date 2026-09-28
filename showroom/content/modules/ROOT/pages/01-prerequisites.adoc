@@ -1,0 +1,13 @@
+= 1. Confirm evidence boundaries
+
+Verify that 201 is complete or that you can explain its VM client, Service,
+NetworkPolicy, adapter, Secret reference, evidence API, failure behavior, and
+human authority. Do not copy a 101 or 201 completion receipt as 301 work.
+
+Record target OpenShift and OpenShift Virtualization versions, namespace,
+architecture, available node labels, storage class, ingress, egress, operator
+scope, and cleanup permissions. Classify each value as `VERIFIED`, `ASSUMED`,
+`UNKNOWN`, `EXCLUDED`, or `BLOCKED`.
+
+If a current value is absent, keep the associated claim `UNKNOWN`. Do not infer
+Intel placement from branding or a requested selector.

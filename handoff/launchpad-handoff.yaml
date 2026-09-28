@@ -1,0 +1,29 @@
+version: 1
+status: PROPOSED_NOT_CERTIFIED
+source:
+  repository: https://github.com/jkershawrh/virtualization-ai-301
+  revision: TO_BE_FILLED_BY_RELEASE_RECEIPT
+  prerequisite: https://github.com/jkershawrh/virtualization-ai-201@70a35189cce95b87240734ec7961a67685d4cb27
+candidate:
+  outcome: Modernize VMs with Governed AI
+  presentation_image: TO_BE_FILLED_BY_RELEASE_RECEIPT
+  adapter_image: TO_BE_FILLED_BY_RELEASE_RECEIPT
+  platform: linux/amd64
+  default_source_state: REHEARSAL
+authority:
+  source_approved: false
+  presentation_approved: false
+  lab_approved: false
+  runtime_approved: false
+  capacity_approved: false
+  reclaim_approved: false
+  certified: false
+  promoted: false
+required_validation:
+  - Confirm OpenShift and OpenShift Virtualization versions, operator scope, and namespace isolation.
+  - Execute allowed, identity-refused, network-refused, placement-refused, placement-unknown, correlation-unknown, and model-unavailable paths.
+  - Verify model, provider, and hardware identity before any LIVE claim.
+  - Measure resource behavior in the approved target; factory decision counters are not a benchmark.
+  - Verify restart/resume behavior and a zero-residue uninstall.
+  - Verify SBOM, zero HIGH/CRITICAL gate, keyless signature, SLSA provenance, and exact-digest pull.
+stop_condition: Factory stops before Launchpad certification or promotion.

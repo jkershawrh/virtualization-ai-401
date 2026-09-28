@@ -1,0 +1,2 @@
+This is a development candidate. REHEARSAL is the default. LIVE requires an approved Secret reference, current-session runtime evidence, and independent Launchpad review.
+Required placement labels are policy intent only until observed in a VMI/node receipt.

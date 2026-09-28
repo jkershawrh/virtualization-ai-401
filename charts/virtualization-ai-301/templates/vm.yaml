@@ -1,0 +1,45 @@
+{{- if .Values.vm.enabled }}
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: {{ .Values.vm.name }}
+  labels:
+    app.kubernetes.io/name: virtualization-ai-301-vm
+    {{- include "virtualization-ai-301.labels" . | nindent 4 }}
+spec:
+  runStrategy: {{ .Values.vm.runStrategy }}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: virtualization-ai-301-vm}
+    spec:
+      serviceAccountName: vm-modernization-client
+      nodeSelector: {{- toYaml .Values.vm.placement.nodeSelector | nindent 8 }}
+      domain:
+        devices:
+          disks: [{name: rootdisk, disk: {bus: virtio}}, {name: cloudinit, disk: {bus: virtio}}]
+          interfaces: [{name: default, masquerade: {}}]
+        resources: {{- toYaml .Values.vm.resources | nindent 10 }}
+      networks: [{name: default, pod: {}}]
+      volumes:
+        - name: rootdisk
+          containerDisk: {image: {{ include "virtualization-ai-301.image" .Values.vm.containerDisk | quote }}}
+        - name: cloudinit
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              users:
+                - name: learner
+                  sudo: ALL=(ALL) NOPASSWD:ALL
+                  {{- if .Values.vm.sshAuthorizedKey }}
+                  ssh_authorized_keys: [{{ .Values.vm.sshAuthorizedKey | quote }}]
+                  {{- end }}
+              write_files:
+                - path: /home/learner/vm_client.py.b64
+                  owner: learner:learner
+                  permissions: '0600'
+                  content: {{ .Files.Get "files/vm_client.py" | b64enc | quote }}
+              runcmd:
+                - [sh, -c, "base64 -d /home/learner/vm_client.py.b64 > /home/learner/vm_client.py"]
+                - [chown, learner:learner, /home/learner/vm_client.py]
+                - [chmod, '0755', /home/learner/vm_client.py]
+{{- end }}

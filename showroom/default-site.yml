@@ -1,0 +1,7 @@
+site:
+  title: Virtualization + AI 301
+  start_page: virtualization-ai-301::index.adoc
+content:
+  sources: [{url: ./content, start_path: .}]
+ui:
+  bundle: {url: https://github.com/rhpds/showroom_theme_rhdp/releases/latest/download/ui-bundle.zip, snapshot: true}

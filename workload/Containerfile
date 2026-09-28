@@ -1,0 +1,7 @@
+FROM cgr.dev/chainguard/python@sha256:b4f5a35502dfb90e79cd23a9f5b39776720c3a8ea29c22b21917791d715a3e1d
+WORKDIR /app
+COPY workload /app/workload
+COPY contracts/governance-policy.json /app/contracts/governance-policy.json
+USER 65532:65532
+EXPOSE 8080
+ENTRYPOINT ["python", "-m", "workload.app"]
