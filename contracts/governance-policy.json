@@ -1,0 +1,21 @@
+{
+  "policy_id": "virtualization-ai-401-day-two",
+  "version": "0.1.0",
+  "default_decision": "ABSTAIN",
+  "rules": [
+    {"id": "refuse-identity-mismatch", "priority": 10, "when": "identity_match == false", "decision": "REFUSE"},
+    {"id": "refuse-network-incompatible", "priority": 20, "when": "network_compatible == false", "decision": "REFUSE"},
+    {"id": "refuse-storage-incompatible", "priority": 30, "when": "storage_compatible == false", "decision": "REFUSE"},
+    {"id": "abstain-stale-evidence", "priority": 40, "when": "evidence_fresh != true", "decision": "ABSTAIN"},
+    {"id": "abstain-correlation-incomplete", "priority": 50, "when": "correlation_complete != true", "decision": "ABSTAIN"},
+    {"id": "allow-human-review", "priority": 100, "when": "all_required_preflight_checks == true", "decision": "ALLOW_REVIEW"}
+  ],
+  "execution": {
+    "human_approval_required": true,
+    "approval_expiry_required": true,
+    "operation_digest_match_required": true,
+    "llm_may_execute": false,
+    "automated_remediation": false
+  }
+}
+

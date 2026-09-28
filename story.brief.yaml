@@ -1,0 +1,30 @@
+schema_version: demo-story.redhat-intel.com/story-brief/v1
+title: "Operate the whole service, not just the VM"
+audience: "Virtualization and platform teams responsible for business applications that now depend on AI services."
+desired_outcome: "Show a repeatable, governed operating pattern for maintenance and recovery across VM, application, AI, and evidence boundaries."
+duration_minutes: 12
+beats:
+  - id: ordinary_world
+    claim: "The service is healthy, but it spans a VM, OpenShift networking, an AI advisory path, and human operating policy."
+  - id: stakes
+    claim: "A maintenance window or failure can preserve VM state while still breaking application, model, or evidence continuity."
+  - id: root_cause
+    claim: "Infrastructure completion is not business-service recovery. Every dependency and evidence link must be revalidated."
+  - id: reframe
+    claim: "Treat migration and recovery as a governed evidence journey, not a single platform action."
+  - id: system_reveal
+    claim: "Observation, deterministic policy, optional explanation, execution authority, validation, and evidence remain separate."
+  - id: live_proof
+    claim: "Run one bounded day-two operation and trace it from preflight through post-operation validation."
+  - id: trials
+    claim: "Refuse policy violations, abstain on missing placement or correlation, and degrade safely when the AI dependency is unavailable."
+  - id: payoff
+    claim: "The operator can prove not only that the VM moved or recovered, but that the governed service remained trustworthy."
+  - id: next_journey
+    claim: "Proceed to 501 only after destination qualification can repeat these outcomes at fleet scale."
+speaker_prompts:
+  - "Name the business service before naming the infrastructure operation."
+  - "Show which evidence was observed and which fact remains unknown."
+  - "Explain why the model is advisory and why the operator owns execution."
+  - "Close on validated service continuity, not an operation-completed event."
+

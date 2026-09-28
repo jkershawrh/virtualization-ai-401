@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://demo-story.redhat-intel.com/virtualization-ai-401/evidence-record.schema.json",
+  "title": "Operation evidence record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence_id", "kind", "source", "source_state", "observed_at", "freshness", "digest", "payload"],
+  "properties": {
+    "evidence_id": {"type": "string", "minLength": 8},
+    "kind": {"enum": ["CLUSTER", "KUBEVIRT", "WORKLOAD", "NETWORK", "STORAGE", "APPLICATION", "AI_ADAPTER", "PLACEMENT", "OPERATION", "VALIDATION"]},
+    "source": {"type": "string", "minLength": 1},
+    "source_state": {"enum": ["LIVE", "REHEARSAL", "OFFLINE"]},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "freshness": {"enum": ["FRESH", "STALE", "UNKNOWN"]},
+    "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "payload": {"type": "object"}
+  }
+}
+

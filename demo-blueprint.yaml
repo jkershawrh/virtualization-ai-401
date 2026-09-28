@@ -1,0 +1,63 @@
+schema_version: demo-story.redhat-intel.com/demo-blueprint/v1
+identity:
+  catalog_item_id: virtualization-ai-401
+  title: "Virtualization + AI 401 — Operate Hybrid VM and AI Workloads"
+  track: virtualization_ai
+  learning_level: "401"
+  status: discovery_contract_design
+sources:
+  prerequisite:
+    repository: https://github.com/jkershawrh/virtualization-ai-301
+    revision: PENDING_IMMUTABLE_RELEASE_RECEIPT
+  supplemental:
+    repository: https://github.com/jkershawrh/ocp-virt-roadshow-2026-showroom
+    revision: "5d296c9c9fbe773af09c16935c78b89baebd1f81"
+story:
+  business_outcome: "Keep a VM-backed service and its AI advisory path governed and explainable through day-two operations."
+  audience: [virtualization_administrator, platform_operator, ai_platform_owner]
+  tension: "A maintenance or failure event forces action while workload identity, service continuity, and evidence must remain intact."
+  proof:
+    - preflight evidence is complete before an operation is proposed
+    - deterministic policy refuses unsafe operations and abstains on missing facts
+    - migration or recovery progress is correlated from request to validation
+    - application and AI-path health are checked after the operation
+    - human authority is preserved and no automatic remediation occurs
+  payoff: "Operate VMs and AI services as one governed system without granting the model infrastructure authority."
+architecture:
+  components:
+    - operator
+    - openshift_api
+    - kubevirt_virtualmachine_and_vmi
+    - application_service
+    - governed_operations_adapter
+    - deterministic_policy
+    - optional_llm_explainer
+    - evidence_ledger
+    - human_approval_gate
+  operation_states: [OBSERVE, PREFLIGHT, PROPOSE, APPROVE, EXECUTE, VALIDATE, LEARN]
+  decisions: [ALLOW_REVIEW, REFUSE, ABSTAIN]
+authority:
+  automated_remediation: false
+  human_approval_required: true
+  llm_may_execute: false
+  factory_may_certify: false
+evidence:
+  source_states: [LIVE, REHEARSAL, OFFLINE]
+  live_claim_requires:
+    - observed_cluster_identity
+    - observed_kubevirt_identity
+    - observed_workload_identity
+    - observed_operation_state
+    - observed_application_health
+  intel_claim_requires:
+    - observed_node_vendor
+    - observed_workload_placement
+    - observed_cpu_allocation
+    - observed_cpu_utilization
+runtime:
+  architecture: linux/amd64
+  deployment_scope: participant_namespace
+  egress_default: deny
+  exact_digest_images_required: true
+  release_gate: zero_high_zero_critical
+
