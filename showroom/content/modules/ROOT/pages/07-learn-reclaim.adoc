@@ -1,0 +1,14 @@
+= 7. LEARN and reclaim
+
+Restart the operations adapter and retrieve the earlier request by identifier.
+The PVC-backed JSONL ledger must retain its ordered, digest-bearing records.
+Export only evidence; do not export credentials or unrelated metadata.
+
+Inventory resources labeled `lab.redhat.com/candidate=virtualization-ai-401`,
+uninstall the candidate release, and repeat the inventory. Acceptance requires
+zero residue for candidate Deployments, Pods, Services, Routes, NetworkPolicies,
+ServiceAccounts, VirtualMachines, ServiceMonitors, and the evidence PVC.
+
+Do not remove shared operators, CRDs, nodes, storage classes, Secrets, or
+roadshow resources. `ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN` remain evidence—not
+Launchpad certification or promotion.

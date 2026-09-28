@@ -1,1 +1,1 @@
-{"scope":"factory-source-workspace","cluster_mutation_performed":false,"target_cleanup_verified":false,"reason":"No 301 resources were deployed by the factory; Launchpad must produce target zero-residue evidence."}
+{"scope":"factory-rehearsal-runtime","candidate":"virtualization-ai-401","cluster_mutation_performed":false,"temporary_runtime_removed":true,"residue_count":0,"target_cleanup_verified":false,"reason":"The factory removed its local temporary ledger and process. Launchpad must independently prove target zero residue."}

@@ -1,1 +1,1 @@
-"""Governed modernization adapter."""
+"""Governed, non-remediating operations evidence adapter."""

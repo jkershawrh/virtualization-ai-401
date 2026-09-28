@@ -60,6 +60,14 @@ class OperationsAdapterTests(unittest.TestCase):
             response, _ = evaluate(payload)
             self.assertEqual(response["decision"], "ABSTAIN")
 
+    def test_snapshot_labels_override_optimistic_preflight_flags(self):
+        payload = request()
+        payload["evidence_snapshot"][0]["freshness"] = "STALE"
+        self.assertEqual(evaluate(payload)[0]["reason_codes"], ["EVIDENCE_STALE"])
+        payload = request()
+        payload["evidence_snapshot"][0]["request_id"] = "different-request"
+        self.assertEqual(evaluate(payload)[0]["reason_codes"], ["CORRELATION_INCOMPLETE"])
+
     def test_approval_digest_and_expiry_are_enforced(self):
         payload = request()
         payload["approval"]["operation_digest"] = "sha256:" + "0" * 64

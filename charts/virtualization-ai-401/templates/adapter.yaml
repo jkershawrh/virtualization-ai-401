@@ -1,49 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: virtualization-ai-401-adapter
+  name: virtualization-ai-401-operations-adapter
   labels:
-    app.kubernetes.io/name: virtualization-ai-401-adapter
+    app.kubernetes.io/name: virtualization-ai-401-operations-adapter
     {{- include "virtualization-ai-401.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.adapter.replicas }}
-  selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-adapter}}
+  replicas: {{ .Values.operationsAdapter.replicas }}
+  selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-operations-adapter}}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: virtualization-ai-401-adapter
+        app.kubernetes.io/name: virtualization-ai-401-operations-adapter
         {{- include "virtualization-ai-401.labels" . | nindent 8 }}
     spec:
       serviceAccountName: virtualization-ai-401
       automountServiceAccountToken: false
-      nodeSelector: {{- toYaml .Values.adapter.placement.nodeSelector | nindent 8 }}
-      securityContext: {runAsNonRoot: true, seccompProfile: {type: RuntimeDefault}}
+      nodeSelector: {{- toYaml .Values.operationsAdapter.placement.nodeSelector | nindent 8 }}
+      securityContext: {runAsNonRoot: true, fsGroup: 65532, seccompProfile: {type: RuntimeDefault}}
       containers:
-        - name: adapter
-          image: {{ include "virtualization-ai-401.image" .Values.adapter.image | quote }}
-          imagePullPolicy: {{ .Values.adapter.image.pullPolicy }}
-          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: [ALL]}}
+        - name: operations-adapter
+          image: {{ include "virtualization-ai-401.image" .Values.operationsAdapter.image | quote }}
+          imagePullPolicy: {{ .Values.operationsAdapter.image.pullPolicy }}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
           ports: [{name: http, containerPort: 8080}]
           env:
-            - {name: ADAPTER_MODE, value: {{ .Values.adapter.mode | quote }}}
-            {{- if .Values.adapter.model.secretName }}
-            - {name: MODEL_ENDPOINT, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.endpointKey | quote }}}}}
-            - {name: MODEL_ID, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.modelKey | quote }}}}}
-            - {name: MODEL_PROVIDER, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.providerKey | quote }}}}}
-            - {name: MODEL_HARDWARE, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.hardwareKey | quote }}}}}
-            - {name: MODEL_API_KEY, valueFrom: {secretKeyRef: {name: {{ .Values.adapter.model.secretName | quote }}, key: {{ .Values.adapter.model.apiKeyKey | quote }}}}}
+            - {name: ADAPTER_MODE, value: {{ .Values.operationsAdapter.mode | quote }}}
+            - {name: LEDGER_PATH, value: /var/lib/virtualization-ai-401/evidence.jsonl}
+            - {name: PYTHONDONTWRITEBYTECODE, value: "1"}
+            {{- if .Values.operationsAdapter.model.secretName }}
+            - {name: EXPLANATION_ENDPOINT, valueFrom: {secretKeyRef: {name: {{ .Values.operationsAdapter.model.secretName | quote }}, key: {{ .Values.operationsAdapter.model.endpointKey | quote }}}}}
+            - {name: MODEL_ID, valueFrom: {secretKeyRef: {name: {{ .Values.operationsAdapter.model.secretName | quote }}, key: {{ .Values.operationsAdapter.model.modelKey | quote }}}}}
+            - {name: MODEL_PROVIDER, valueFrom: {secretKeyRef: {name: {{ .Values.operationsAdapter.model.secretName | quote }}, key: {{ .Values.operationsAdapter.model.providerKey | quote }}}}}
+            - {name: MODEL_API_KEY, valueFrom: {secretKeyRef: {name: {{ .Values.operationsAdapter.model.secretName | quote }}, key: {{ .Values.operationsAdapter.model.apiKeyKey | quote }}}}}
             {{- end }}
           readinessProbe: {httpGet: {path: /healthz, port: http}, initialDelaySeconds: 2, periodSeconds: 5}
           livenessProbe: {httpGet: {path: /healthz, port: http}, initialDelaySeconds: 5, periodSeconds: 10}
-          resources: {{- toYaml .Values.adapter.resources | nindent 12 }}
+          resources: {{- toYaml .Values.operationsAdapter.resources | nindent 12 }}
+          volumeMounts: [{name: evidence-ledger, mountPath: /var/lib/virtualization-ai-401}]
+      volumes: [{name: evidence-ledger, persistentVolumeClaim: {claimName: virtualization-ai-401-evidence}}]
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: virtualization-ai-401-adapter
+  name: virtualization-ai-401-operations-adapter
   labels:
-    app.kubernetes.io/name: virtualization-ai-401-adapter
+    app.kubernetes.io/name: virtualization-ai-401-operations-adapter
     {{- include "virtualization-ai-401.labels" . | nindent 4 }}
 spec:
-  selector: {app.kubernetes.io/name: virtualization-ai-401-adapter}
+  selector: {app.kubernetes.io/name: virtualization-ai-401-operations-adapter}
   ports: [{name: http, port: 8080, targetPort: http}]

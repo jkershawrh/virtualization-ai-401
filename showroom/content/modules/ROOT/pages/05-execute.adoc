@@ -1,0 +1,9 @@
+= 5. EXECUTE
+
+In `REHEARSAL`, submit the healthy migration fixture and verify seven ordered
+records: `OBSERVE`, `PREFLIGHT`, `PROPOSE`, `APPROVE`, `EXECUTE`, `VALIDATE`,
+and `LEARN`. The `EXECUTE` record is a representative observation, not a change.
+
+In a development target, a separately authorized platform operator performs the
+planned migration or recovery. The adapter only accepts the observed result.
+No automated remediation is permitted.

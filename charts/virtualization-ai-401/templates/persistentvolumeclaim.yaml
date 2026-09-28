@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: virtualization-ai-401-evidence
+  labels: {{- include "virtualization-ai-401.labels" . | nindent 4 }}
+spec:
+  accessModes: [ReadWriteOnce]
+  {{- if .Values.operationsAdapter.ledger.storageClassName }}
+  storageClassName: {{ .Values.operationsAdapter.ledger.storageClassName | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.operationsAdapter.ledger.size }}

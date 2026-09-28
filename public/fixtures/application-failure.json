@@ -1,0 +1,1 @@
+{"decision":"REFUSE","reason":"APPLICATION_FAILED_AFTER_INFRA_SUCCESS","source_state":"REHEARSAL","authority":{"human_review_required":true,"automated_action_performed":false,"llm_authority":"NONE"},"validation":{"infrastructure":"PASS","application":"FAIL","ai_dependency":"PASS"}}

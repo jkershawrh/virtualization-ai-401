@@ -1,4 +1,5 @@
 status: PROPOSED_NOT_ORDERABLE
-title: Virtualization + AI 401 — Modernize VMs with Governed AI
-seats: 0
+title: Virtualization + AI 401 — Operate Hybrid VM and AI Workloads
+orderable: false
+max_seats: 0
 reason: Launchpad validation, certification, and promotion remain incomplete.

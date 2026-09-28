@@ -1,0 +1,8 @@
+= 3. PROPOSE
+
+Create the canonical digest for the exact request without its approval block.
+The proposal identifies one operation—`LIVE_MIGRATE`, `VALIDATE_RECOVERY`, or
+`RESTORE_REVIEW`—and one VM. No wildcard or fleet action is allowed.
+
+With no approval, expect `ALLOW_REVIEW / HUMAN_APPROVAL_REQUIRED`. The durable
+ledger must end at `PROPOSE` and contain no automatic action.

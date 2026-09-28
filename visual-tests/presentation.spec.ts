@@ -8,7 +8,7 @@ test('opening and architecture remain visually stable', async ({ page }) => {
 })
 
 test('live journey opens as a workload workspace with topology on demand', async ({ page }) => {
-  await page.goto('/?act=2&scene=0')
+  await page.goto('/?act=4&scene=0')
   await expect(page).toHaveScreenshot('live-journey.png', { fullPage: true })
 })
 
@@ -20,7 +20,7 @@ test('core controls are keyboard reachable', async ({ page }) => {
 
 test('all seven stage scenes require no vertical scroll', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'stage-1080p')
-  for (const url of ['/?act=0&scene=0', '/?act=0&scene=1', '/?act=1&scene=0', '/?act=2&scene=0', '/?act=2&scene=1', '/?act=3&scene=0', '/?act=4&scene=0']) {
+  for (const url of ['/?act=0&scene=0', '/?act=1&scene=0', '/?act=2&scene=0', '/?act=3&scene=0', '/?act=4&scene=0', '/?act=5&scene=0', '/?act=6&scene=0']) {
     await page.goto(url)
     const sizes = await page.evaluate(() => {
       const stage = document.querySelector('.stage') as HTMLElement

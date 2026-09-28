@@ -1,0 +1,14 @@
+= 6. VALIDATE
+
+Exercise three conditions through the same contract:
+
+|===
+|Condition |Infrastructure |Application |AI path |Decision
+|Healthy migration |PASS |PASS |PASS |`ALLOW_REVIEW`
+|AI dependency outage |PASS |PASS |FAIL |`ABSTAIN`
+|Application failure after platform success |PASS |FAIL |PASS |`REFUSE`
+|===
+
+Do not equate infrastructure completion with service recovery. When the AI
+dependency is unavailable, preserve degraded behavior and do not fabricate an
+explanation or claim model participation.

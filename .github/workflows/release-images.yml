@@ -31,6 +31,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: python3 -m pip install --requirement requirements-test.txt
       - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:visual
       - run: npm audit --audit-level=high
   release:
     needs: qualify
@@ -40,7 +42,7 @@ jobs:
       matrix:
         include:
           - {component: presentation, file: Containerfile, image: virtualization-ai-401-presentation}
-          - {component: adapter, file: workload/Containerfile, image: virtualization-ai-401-adapter}
+          - {component: operations-adapter, file: workload/Containerfile, image: virtualization-ai-401-operations-adapter}
     steps:
       - uses: actions/checkout@v4
         with: {ref: "${{ inputs.expected_sha }}"}

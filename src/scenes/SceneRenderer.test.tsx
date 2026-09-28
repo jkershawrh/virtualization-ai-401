@@ -16,7 +16,7 @@ describe('SceneRenderer', () => {
   }
 
   it('labels rehearsal data instead of presenting it as live', async () => {
-    const scene: SceneConfig = { id: 'fallback', type: 'live-proof', beat: 'live-proof', title: 'Proof', adapterId: 'governed-allowed', cta: 'Run live proof', resultFields: [{ key: 'outcome', label: 'Outcome' }] }
+    const scene: SceneConfig = { id: 'fallback', type: 'live-proof', beat: 'live-proof', title: 'Proof', adapterId: 'operation-healthy', cta: 'Run live proof', resultFields: [{ key: 'decision', label: 'Decision' }] }
     render(<SceneRenderer scene={scene} brand={demoConfig.brand} />)
     fireEvent.click(screen.getByRole('button', { name: /run live proof/i }))
     expect(await screen.findByText('rehearsal')).toBeInTheDocument()
@@ -29,10 +29,10 @@ describe('SceneRenderer', () => {
     expect(screen.queryByLabelText('Live technical deployment topology')).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Inspect technical topology' }))
     expect(screen.getByLabelText('Live technical deployment topology')).toBeInTheDocument()
-    expect(screen.getByText('OpenShift namespace')).toBeInTheDocument()
-    expect(screen.getByText('POST /api/v1/modernize')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /run governed conditions/i }))
-    expect((await screen.findAllByText('Complete representative evidence'))[0]).toBeInTheDocument()
+    expect(screen.getByText('Governed operations boundary')).toBeInTheDocument()
+    expect(screen.getByText('POST /api/v1/operations')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /run governed operation conditions/i }))
+    expect((await screen.findAllByText('Planned migration validates'))[0]).toBeInTheDocument()
     expect(await screen.findByRole('button', { name: /next governed condition/i })).toBeInTheDocument()
   })
 
@@ -63,13 +63,13 @@ describe('SceneRenderer', () => {
   it('guides architecture as audience questions and revealed answers', async () => {
     const scene = scenes.find((item) => item.type === 'guided-architecture')!
     render(<SceneRenderer scene={scene} brand={demoConfig.brand} />)
-    expect(screen.getByText('Which workload is asking?')).toBeInTheDocument()
-    expect(screen.queryByText('Namespace, VM name, VMI UID, and service account must be attributable.')).not.toBeInTheDocument()
+    expect(screen.getByText('Is this the declared VM?')).toBeInTheDocument()
+    expect(screen.queryByText('Namespace and VM identity must match.')).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Reveal technical boundary' }))
-    expect(await screen.findByText('Namespace, VM name, VMI UID, and service account must be attributable.')).toBeInTheDocument()
-    expect(document.querySelector('[data-node="identity"]')).toHaveClass('active')
+    expect(await screen.findByText('Namespace and VM identity must match.')).toBeInTheDocument()
+    expect(document.querySelector('[data-node="observe"]')).toHaveClass('active')
     fireEvent.click(screen.getByRole('button', { name: 'Ask next question →' }))
-    expect(await screen.findByText('Which path was actually used?')).toBeInTheDocument()
+    expect(await screen.findByText('Can network and storage move safely?')).toBeInTheDocument()
   })
 
   it('keeps the presenter pitch at seven scenes or fewer', () => {
@@ -80,7 +80,7 @@ describe('SceneRenderer', () => {
     expect(scenes.some((scene) => scene.type === 'guided-architecture')).toBe(true)
     expect(scenes.some((scene) => scene.type === 'live-journey')).toBe(true)
     expect(scenes.some((scene) => scene.type === 'comparison' || scene.type === 'scale' || scene.type === 'tradeoff')).toBe(true)
-    expect(scenes.some((scene) => scene.type === 'mechanisms')).toBe(true)
+    expect(scenes.some((scene) => scene.type === 'mechanisms' || scene.type === 'trust-boundary')).toBe(true)
     expect(scenes.at(-1)?.type).toBe('evidence-payoff')
   })
 
@@ -88,7 +88,7 @@ describe('SceneRenderer', () => {
     const configured = scenes.find((item) => item.type === 'evidence-payoff')!
     const scene = { ...configured, adapterIds: ['proof-that-has-not-run'] }
     render(<SceneRenderer scene={scene} brand={demoConfig.brand} />)
-    expect(screen.getByText('Run the governed conditions to populate this payoff')).toBeInTheDocument()
+    expect(screen.getByText('Run the three REHEARSAL conditions to populate the evidence payoff')).toBeInTheDocument()
     expect(screen.getByText('not run')).toBeInTheDocument()
   })
 

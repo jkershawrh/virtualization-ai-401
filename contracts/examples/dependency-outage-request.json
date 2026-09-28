@@ -1,0 +1,11 @@
+{
+  "schema_version": "demo-story.redhat-intel.com/virtualization-ai-401/operation-request/v1",
+  "request_id": "op-401-ai-dependency-outage",
+  "operation": "LIVE_MIGRATE",
+  "target": {"namespace": "virtualization-ai-401", "virtual_machine": "hybrid-workload"},
+  "requested_by": "platform-operator",
+  "evidence_snapshot": [{"schema_version": "demo-story.redhat-intel.com/virtualization-ai-401/evidence/v1", "evidence_id": "snapshot-401-outage", "request_id": "op-401-ai-dependency-outage", "state": "OBSERVE", "kind": "AI_ADAPTER", "source": "rehearsal-fixture", "source_state": "REHEARSAL", "observed_at": "2026-09-28T18:00:00Z", "freshness": "FRESH", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "payload": {"dependency": "unavailable"}}],
+  "preflight": {"identity_match": true, "network_compatible": true, "storage_compatible": true, "evidence_fresh": true, "correlation_complete": true},
+  "approval": {"approved_by": "change-reviewer", "expires_at": "2027-09-28T18:30:00Z", "operation_digest": "sha256:50d402e3913e85641ff892f635425d6b7ec4d20aca1015af2530c1d8aee81d4c"},
+  "observed_result": {"operation_complete": true, "infrastructure_success": true, "application_healthy": true, "ai_dependency_healthy": false, "correlation_continuity": true}
+}

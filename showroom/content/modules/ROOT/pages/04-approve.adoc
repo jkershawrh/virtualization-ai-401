@@ -1,0 +1,8 @@
+= 4. APPROVE
+
+A named human reviewer supplies the matching operation digest and an expiry.
+Digest mismatch or expiry must `REFUSE`. The adapter, deterministic policy, and
+optional language model have no approval or execution authority.
+
+Record `HUMAN_APPROVAL_REQUIRED` in the review worksheet even after approval:
+the final interpretation and any later target action remain human-owned.

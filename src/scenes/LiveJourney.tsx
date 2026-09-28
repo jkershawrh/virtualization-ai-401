@@ -36,11 +36,11 @@ export function LiveJourney({ scene }: { scene: LiveJourneyScene }) {
     <div className="live-workspace-main">
       <div className="journey-status">
         <small>{step ? `CONDITION ${stepIndex + 1} OF ${scene.steps.length}` : 'GOVERNED REHEARSAL'}</small>
-        <strong>{step?.title ?? 'Start with the declared request'}</strong>
-        <span>{step?.detail ?? 'Compare declared intent with identity, path, placement, and correlation evidence.'}</span>
+        <strong>{step?.title ?? 'Start with one approved operation'}</strong>
+        <span>{step?.detail ?? 'Preserve the exact digest, observed result, source state, and human authority.'}</span>
         {state.source && <span className={`source-badge source-${state.source}`}>{state.source}</span>}
       </div>
-      {!step && <div className="live-workspace-intake"><span>INPUT</span><strong>Governance evidence request</strong><small>One typed request exercises complete, mismatched, and unknown evidence without changing a workload.</small></div>}
+      {!step && <div className="live-workspace-intake"><span>INPUT</span><strong>Governed operation request</strong><small>One typed contract separates the platform operation, application health, AI dependency, and correlated evidence.</small></div>}
       {!scene.technicalTopology && step && <div className="live-architecture" aria-label="Live architecture journey">
       {scene.nodes.map((node, index) => <div className="live-node-wrap" key={node.id}>
         <div className={`live-node ${node.tone ? `tone-${node.tone}` : ''} ${step && index <= step.activeNode ? 'done' : ''} ${step?.activeNode === index ? 'active' : ''}`}>
@@ -63,7 +63,7 @@ export function LiveJourney({ scene }: { scene: LiveJourneyScene }) {
       {complete && scene.workspace && <a className="button button-primary" href={scene.workspace.href}>{scene.workspace.label} →</a>}
       </div>
     </div>
-    <aside className="live-workspace-context"><span>AUTHORITY</span><strong>Outcome remains human-owned</strong><p>Each condition retains its source state and ordered reason. A later result never erases an earlier refusal.</p><small>ALLOW_REVIEW permits inspection; it never deploys, migrates, promotes, or certifies.</small></aside>
+    <aside className="live-workspace-context"><span>AUTHORITY</span><strong>Execution remains human-owned</strong><p>The adapter records an external operation result. It never migrates, restores, or remediates a workload.</p><small>ALLOW_REVIEW permits inspection; it never authorizes certification or promotion.</small></aside>
   </div>
   {showTopology && scene.technicalTopology && <div className="live-topology-drawer"><TechnicalTopology topology={scene.technicalTopology} activeIds={step?.activeNodeIds ?? []} /></div>}
   </SceneFrame>

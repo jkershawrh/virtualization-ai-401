@@ -2,9 +2,9 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: virtualization-ai-401-adapter
+  name: virtualization-ai-401-operations-adapter
   labels: {{- include "virtualization-ai-401.labels" . | nindent 4 }}
 spec:
-  selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-adapter}}
+  selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-operations-adapter}}
   endpoints: [{port: http, path: /metrics, interval: {{ .Values.monitoring.serviceMonitor.interval | quote }}}]
 {{- end }}

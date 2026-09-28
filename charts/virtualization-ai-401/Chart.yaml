@@ -1,6 +1,6 @@
 apiVersion: v2
 name: virtualization-ai-401
-description: Governed VM modernization development candidate
+description: Governed hybrid VM and AI day-two operations candidate
 type: application
 version: 0.1.0
 appVersion: "0.1.0"

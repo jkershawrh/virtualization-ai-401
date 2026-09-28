@@ -9,13 +9,13 @@ describe('presentation controls', () => {
     render(<App />)
     expect(screen.getByText('click or press space to begin')).toBeInTheDocument()
     fireEvent.keyDown(window, { key: ' ' })
-    expect(new URLSearchParams(window.location.search).get('act')).toBe('0')
+    expect(new URLSearchParams(window.location.search).get('act')).toBe('1')
   })
 
   it('supports deep links', () => {
     window.history.replaceState(null, '', '/?act=1&scene=0')
     render(<App />)
-    expect(screen.getByText('Reveal one control boundary at a time')).toBeInTheDocument()
+    expect(screen.getByText('Qualify the operation before proposing it')).toBeInTheDocument()
   })
 
   it('restarts from the brand control', () => {
@@ -37,6 +37,6 @@ describe('presentation controls', () => {
     window.history.replaceState(null, '', '/?act=0&scene=0')
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Toggle presenter prompt' }))
-    expect(screen.getByText(/State the prerequisite precisely/)).toBeInTheDocument()
+    expect(screen.getByText(/State REHEARSAL/)).toBeInTheDocument()
   })
 })

@@ -4,31 +4,30 @@
   "title": "Governed day-two operation request",
   "type": "object",
   "additionalProperties": false,
-  "required": ["request_id", "operation", "target", "evidence_snapshot", "requested_by"],
+  "required": ["schema_version", "request_id", "operation", "target", "requested_by", "evidence_snapshot", "preflight", "approval", "observed_result"],
   "properties": {
+    "schema_version": {"const": "demo-story.redhat-intel.com/virtualization-ai-401/operation-request/v1"},
     "request_id": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{7,127}$"},
     "operation": {"enum": ["LIVE_MIGRATE", "VALIDATE_RECOVERY", "RESTORE_REVIEW"]},
     "target": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["namespace", "virtual_machine"],
-      "properties": {
-        "namespace": {"type": "string", "minLength": 1},
-        "virtual_machine": {"type": "string", "minLength": 1}
-      }
+      "type": "object", "additionalProperties": false, "required": ["namespace", "virtual_machine"],
+      "properties": {"namespace": {"type": "string", "minLength": 1}, "virtual_machine": {"type": "string", "minLength": 1}}
     },
-    "evidence_snapshot": {"type": "string", "minLength": 8},
     "requested_by": {"type": "string", "minLength": 1},
+    "evidence_snapshot": {"type": "array", "minItems": 1, "items": {"$ref": "evidence-record.schema.json"}},
+    "preflight": {
+      "type": "object", "additionalProperties": false,
+      "required": ["identity_match", "network_compatible", "storage_compatible", "evidence_fresh", "correlation_complete"],
+      "properties": {"identity_match": {"type": "boolean"}, "network_compatible": {"type": "boolean"}, "storage_compatible": {"type": "boolean"}, "evidence_fresh": {"type": "boolean"}, "correlation_complete": {"type": "boolean"}}
+    },
     "approval": {
-      "type": ["object", "null"],
-      "additionalProperties": false,
-      "required": ["approved_by", "expires_at", "operation_digest"],
-      "properties": {
-        "approved_by": {"type": "string", "minLength": 1},
-        "expires_at": {"type": "string", "format": "date-time"},
-        "operation_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
-      }
+      "type": ["object", "null"], "additionalProperties": false, "required": ["approved_by", "expires_at", "operation_digest"],
+      "properties": {"approved_by": {"type": "string", "minLength": 1}, "expires_at": {"type": "string", "format": "date-time"}, "operation_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}}
+    },
+    "observed_result": {
+      "type": ["object", "null"], "additionalProperties": false,
+      "required": ["operation_complete", "infrastructure_success", "application_healthy", "ai_dependency_healthy", "correlation_continuity"],
+      "properties": {"operation_complete": {"type": "boolean"}, "infrastructure_success": {"type": "boolean"}, "application_healthy": {"type": "boolean"}, "ai_dependency_healthy": {"type": "boolean"}, "correlation_continuity": {"type": "boolean"}}
     }
   }
 }
-

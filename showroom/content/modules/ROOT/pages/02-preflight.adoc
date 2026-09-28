@@ -1,0 +1,8 @@
+= 2. PREFLIGHT
+
+Submit identity, network, storage, freshness, and correlation observations to
+the deterministic policy. A known identity, network, or storage incompatibility
+must `REFUSE`. Stale evidence or an incomplete correlation must `ABSTAIN`.
+
+A complete preflight returns `ALLOW_REVIEW`, not execution permission. Preserve
+the ordered reason and verify no `EXECUTE` ledger record exists yet.

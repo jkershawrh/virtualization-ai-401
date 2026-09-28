@@ -2,7 +2,7 @@
 
 ## Decision
 
-Proceed as a distinct 401 catalog item after Virtualization + AI 401. The 301
+Proceed as a distinct 401 catalog item after Virtualization + AI 301. The 301
 item establishes identity, network, placement, observability, and a governed AI
 advisory path. The 401 item earns its level by operating that same system through
 maintenance, migration, dependency failure, and recovery without losing policy,
@@ -55,4 +55,3 @@ validates application, network, storage, model-adapter, and evidence continuity.
   VM movement;
 - observable Intel node identity, placement, allocation, and utilization;
 - Launchpad seat isolation, timeout, reset, and reclaim behavior.
-

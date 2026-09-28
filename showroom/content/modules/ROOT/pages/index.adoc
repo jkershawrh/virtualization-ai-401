@@ -1,18 +1,13 @@
-= Modernize VMs with Governed AI
+= Operate Hybrid VM and AI Workloads
 
-This 90–120 minute level-301 lab starts from the completed 201 VM-to-AI
-contract. You will declare identity, network, placement, observability, and
-authority policy; compare it with independent observations; exercise
-`ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN`; and reclaim every candidate resource.
+This separate 90–120 minute level-401 lab starts from the immutable 301 source
+revision `91e30a4af72bb4a15a4e5dfe2f29abb5692c698f`. Follow
+`OBSERVE → PREFLIGHT → PROPOSE → APPROVE → EXECUTE → VALIDATE → LEARN` for a
+planned migration or recovery validation.
 
-The model is advisory. It cannot run tools, change the VM, migrate workloads,
-approve evidence, certify the lab, or promote artifacts. Factory fixtures are
-`REHEARSAL`; only a complete current-session target receipt may say `LIVE`.
+The operations adapter evaluates supplied evidence and writes a durable ledger.
+It cannot migrate, restore, remediate, certify, or promote anything. Begin in
+`REHEARSAL`; say `LIVE` only when current target evidence proves every claim.
 
-== Deliverables
-
-* one versioned request and policy;
-* allowed, refused, abstained, and model-unavailable records;
-* bounded decision counters (not a platform benchmark);
-* a named human accept/reject worksheet; and
-* before/after resource inventories showing zero labeled residue.
+You will exercise `ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN`, including dependency
+degradation and infrastructure-success/application-failure detection.

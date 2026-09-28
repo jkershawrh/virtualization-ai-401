@@ -32,7 +32,7 @@ export function validateDemoConfig(config: DemoConfig): string[] {
   if (!scenes.some((scene) => scene.type === 'live-proof' || scene.type === 'live-journey')) warnings.push('Story is missing a live proof scene.')
   const handoffs = config.journeyHandoffs ?? config.relatedStories ?? []
   if (!handoffs.length) warnings.push('Finale must provide one explicit guided handoff or close.')
-  if (!scenes.some((scene) => scene.type === 'mechanisms')) warnings.push('Pre-lab journey is missing a mechanism deep dive.')
+  if (!scenes.some((scene) => scene.type === 'mechanisms' || scene.type === 'trust-boundary')) warnings.push('Pre-lab journey is missing a mechanism or authority-boundary deep dive.')
   if (!scenes.some((scene) => scene.type === 'evidence-payoff')) warnings.push('Payoff should recap evidence produced during the live journey.')
   for (const scene of scenes) {
     if (scene.type === 'metric' || scene.type === 'stat-grid' || scene.type === 'scale') {

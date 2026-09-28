@@ -1,0 +1,1 @@
+{"decision":"ALLOW_REVIEW","reason":"VALIDATION_COMPLETE","source_state":"REHEARSAL","authority":{"human_review_required":true,"automated_action_performed":false,"llm_authority":"NONE"},"validation":{"infrastructure":"PASS","application":"PASS","ai_dependency":"PASS"}}

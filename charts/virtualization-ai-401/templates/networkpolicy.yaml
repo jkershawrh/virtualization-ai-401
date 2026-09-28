@@ -4,7 +4,7 @@ metadata:
   name: adapter-default-deny
   labels: {{- include "virtualization-ai-401.labels" . | nindent 4 }}
 spec:
-  podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-adapter}}
+  podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-operations-adapter}}
   policyTypes: [Ingress, Egress]
 ---
 apiVersion: networking.k8s.io/v1
@@ -13,7 +13,7 @@ metadata:
   name: allow-declared-adapter-path
   labels: {{- include "virtualization-ai-401.labels" . | nindent 4 }}
 spec:
-  podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-adapter}}
+  podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-operations-adapter}}
   policyTypes: [Ingress, Egress]
   ingress:
     - from:
@@ -24,7 +24,7 @@ spec:
     - to:
         - namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: openshift-dns}}
       ports: [{protocol: UDP, port: 53}, {protocol: TCP, port: 53}]
-    {{- if .Values.adapter.model.egressCIDR }}
-    - to: [{ipBlock: {cidr: {{ .Values.adapter.model.egressCIDR | quote }}}}]
+    {{- if .Values.operationsAdapter.model.egressCIDR }}
+    - to: [{ipBlock: {cidr: {{ .Values.operationsAdapter.model.egressCIDR | quote }}}}]
       ports: [{protocol: TCP, port: 443}]
     {{- end }}

@@ -15,7 +15,9 @@ def load_json(relative: str):
 
 class GovernanceContractTests(unittest.TestCase):
     def validate(self, schema: str, example: str):
-        validator = Draft202012Validator(load_json(schema), format_checker=FormatChecker(), resolver=RefResolver((CONTRACTS / schema).as_uri(), load_json(schema)))
+        evidence = load_json("evidence-record.schema.json")
+        resolver = RefResolver((CONTRACTS / schema).as_uri(), load_json(schema), store={evidence["$id"]: evidence, "evidence-record.schema.json": evidence})
+        validator = Draft202012Validator(load_json(schema), format_checker=FormatChecker(), resolver=resolver)
         errors = sorted(validator.iter_errors(load_json(example)), key=lambda error: list(error.path))
         self.assertEqual(errors, [], "\n".join(error.message for error in errors))
 

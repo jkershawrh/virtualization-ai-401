@@ -4,11 +4,11 @@ identity:
   title: "Virtualization + AI 401 — Operate Hybrid VM and AI Workloads"
   track: virtualization_ai
   learning_level: "401"
-  status: discovery_contract_design
+  status: implementation_candidate
 sources:
   prerequisite:
     repository: https://github.com/jkershawrh/virtualization-ai-401
-    revision: PENDING_IMMUTABLE_RELEASE_RECEIPT
+    revision: 91e30a4af72bb4a15a4e5dfe2f29abb5692c698f
   supplemental:
     repository: https://github.com/jkershawrh/ocp-virt-roadshow-2026-showroom
     revision: "5d296c9c9fbe773af09c16935c78b89baebd1f81"
@@ -60,4 +60,3 @@ runtime:
   egress_default: deny
   exact_digest_images_required: true
   release_gate: zero_high_zero_critical
-

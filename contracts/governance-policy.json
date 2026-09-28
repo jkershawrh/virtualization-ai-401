@@ -8,7 +8,15 @@
     {"id": "refuse-storage-incompatible", "priority": 30, "when": "storage_compatible == false", "decision": "REFUSE"},
     {"id": "abstain-stale-evidence", "priority": 40, "when": "evidence_fresh != true", "decision": "ABSTAIN"},
     {"id": "abstain-correlation-incomplete", "priority": 50, "when": "correlation_complete != true", "decision": "ABSTAIN"},
-    {"id": "allow-human-review", "priority": 100, "when": "all_required_preflight_checks == true", "decision": "ALLOW_REVIEW"}
+    {"id": "allow-human-review", "priority": 100, "when": "all_required_preflight_checks == true and approval == null", "decision": "ALLOW_REVIEW"},
+    {"id": "refuse-approval-digest-mismatch", "priority": 110, "when": "approval.operation_digest != canonical_operation_digest", "decision": "REFUSE"},
+    {"id": "refuse-approval-expired", "priority": 120, "when": "approval.expires_at <= now", "decision": "REFUSE"},
+    {"id": "abstain-operation-incomplete", "priority": 130, "when": "observed_result.operation_complete != true", "decision": "ABSTAIN"},
+    {"id": "refuse-infrastructure-failure", "priority": 140, "when": "observed_result.infrastructure_success == false", "decision": "REFUSE"},
+    {"id": "refuse-application-failure", "priority": 150, "when": "observed_result.infrastructure_success == true and observed_result.application_healthy == false", "decision": "REFUSE"},
+    {"id": "abstain-validation-correlation", "priority": 160, "when": "observed_result.correlation_continuity == false", "decision": "ABSTAIN"},
+    {"id": "abstain-ai-dependency", "priority": 170, "when": "observed_result.ai_dependency_healthy == false", "decision": "ABSTAIN"},
+    {"id": "allow-validated-review", "priority": 200, "when": "all_validation_checks == true", "decision": "ALLOW_REVIEW"}
   ],
   "execution": {
     "human_approval_required": true,
@@ -18,4 +26,3 @@
     "automated_remediation": false
   }
 }
-

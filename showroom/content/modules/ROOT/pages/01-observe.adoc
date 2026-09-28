@@ -1,0 +1,9 @@
+= 1. OBSERVE
+
+Record the target OpenShift, OpenShift Virtualization, namespace, VM/VMI,
+network, storage, application, and AI dependency identities. Mark each fact
+`LIVE`, `REHEARSAL`, or `OFFLINE`, and retain its timestamp and digest.
+
+Do not infer model, provider, Intel placement, CPU allocation, or utilization.
+Unknown facts remain unknown. Confirm the adapter has no cluster credential and
+cannot perform automated remediation. Factory fixtures are `REHEARSAL`.

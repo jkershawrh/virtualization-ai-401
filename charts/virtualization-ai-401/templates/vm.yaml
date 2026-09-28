@@ -12,7 +12,7 @@ spec:
     metadata:
       labels: {app.kubernetes.io/name: virtualization-ai-401-vm}
     spec:
-      serviceAccountName: vm-modernization-client
+      serviceAccountName: vm-operations-client
       nodeSelector: {{- toYaml .Values.vm.placement.nodeSelector | nindent 8 }}
       domain:
         devices:

@@ -4,42 +4,23 @@
   "title": "Governed day-two operation response",
   "type": "object",
   "additionalProperties": false,
-  "required": ["request_id", "decision", "source_state", "policy", "authority", "evidence", "validation"],
+  "required": ["schema_version", "request_id", "decision", "source_state", "reason_codes", "policy", "authority", "evidence", "validation", "ai_participated", "explanation"],
   "properties": {
+    "schema_version": {"const": "demo-story.redhat-intel.com/virtualization-ai-401/operation-response/v1"},
     "request_id": {"type": "string"},
     "decision": {"enum": ["ALLOW_REVIEW", "REFUSE", "ABSTAIN"]},
     "source_state": {"enum": ["LIVE", "REHEARSAL", "OFFLINE"]},
-    "policy": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["id", "version", "matched_rules"],
-      "properties": {
-        "id": {"const": "virtualization-ai-401-day-two"},
-        "version": {"type": "string"},
-        "matched_rules": {"type": "array", "items": {"type": "string"}, "minItems": 1}
-      }
-    },
-    "authority": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["human_review_required", "automated_action_performed", "llm_authority"],
-      "properties": {
-        "human_review_required": {"const": true},
-        "automated_action_performed": {"const": false},
-        "llm_authority": {"const": "NONE"}
-      }
-    },
-    "evidence": {"type": "array", "items": {"$ref": "evidence-record.schema.json"}, "minItems": 1},
-    "validation": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["status", "checks"],
-      "properties": {
-        "status": {"enum": ["NOT_RUN", "PASS", "FAIL", "INCOMPLETE"]},
-        "checks": {"type": "array", "items": {"type": "string"}}
-      }
-    },
-    "explanation": {"type": ["string", "null"]}
+    "reason_codes": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "policy": {"type": "object", "additionalProperties": false, "required": ["id", "version", "matched_rules"], "properties": {"id": {"const": "virtualization-ai-401-day-two"}, "version": {"type": "string"}, "matched_rules": {"type": "array", "minItems": 1, "items": {"type": "string"}}}},
+    "authority": {"type": "object", "additionalProperties": false, "required": ["human_review_required", "automated_action_performed", "llm_authority"], "properties": {"human_review_required": {"const": true}, "automated_action_performed": {"const": false}, "llm_authority": {"const": "NONE"}}},
+    "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "evidence-record.schema.json"}},
+    "validation": {"type": "object", "additionalProperties": false, "required": ["status", "infrastructure", "application", "ai_dependency", "correlation"], "properties": {"status": {"enum": ["NOT_RUN", "PASS", "FAIL", "INCOMPLETE"]}, "infrastructure": {"enum": ["NOT_RUN", "PASS", "FAIL"]}, "application": {"enum": ["NOT_RUN", "PASS", "FAIL"]}, "ai_dependency": {"enum": ["NOT_RUN", "PASS", "FAIL"]}, "correlation": {"enum": ["NOT_RUN", "PASS", "FAIL"]}}},
+    "ai_participated": {"type": "boolean"},
+    "explanation": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "object", "additionalProperties": false, "required": ["text", "model_id", "provider"], "properties": {"text": {"type": "string", "minLength": 1, "maxLength": 500}, "model_id": {"type": "string", "minLength": 1}, "provider": {"type": "string", "minLength": 1}}}
+      ]
+    }
   }
 }
-
