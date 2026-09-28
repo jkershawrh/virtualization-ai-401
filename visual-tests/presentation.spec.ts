@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('opening and architecture remain visually stable', async ({ page }) => {
+  test.skip(Boolean(process.env.CI), 'macOS pixel baselines are verified locally; CI runs platform-neutral browser checks')
   await page.goto('/')
   await expect(page).toHaveScreenshot('opening.png', { fullPage: true })
   await page.goto('/?act=1&scene=0')
@@ -8,6 +9,7 @@ test('opening and architecture remain visually stable', async ({ page }) => {
 })
 
 test('live journey opens as a workload workspace with topology on demand', async ({ page }) => {
+  test.skip(Boolean(process.env.CI), 'macOS pixel baselines are verified locally; CI runs platform-neutral browser checks')
   await page.goto('/?act=4&scene=0')
   await expect(page).toHaveScreenshot('live-journey.png', { fullPage: true })
 })
