@@ -18,7 +18,7 @@ const technicalTopology = {
 }
 
 export const demoConfig: DemoConfig = {
-  id: 'virtualization-ai-301', title: 'Modernize VMs with Governed AI', subtitle: 'Identity, network, placement, and evidence across Red Hat OpenShift Virtualization and Intel', event: 'Level 301 decision story', audience: 'Application, virtualization, and platform engineers', cta: 'Decide whether the governed construction lab earns review.',
+  id: 'virtualization-ai-401', title: 'Modernize VMs with Governed AI', subtitle: 'Identity, network, placement, and evidence across Red Hat OpenShift Virtualization and Intel', event: 'Level 301 decision story', audience: 'Application, virtualization, and platform engineers', cta: 'Decide whether the governed construction lab earns review.',
   brand: { primary: { name: 'Red Hat', logo: '/logos/redhat.svg', alt: 'Red Hat' }, partner: { name: 'Intel', logo: '/logos/intel.png', alt: 'Intel' }, attribution: 'Red Hat × Intel' },
   acts: [
     { id: 'decision', label: '00', title: 'The decision', scenes: [

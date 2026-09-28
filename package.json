@@ -1,5 +1,5 @@
 {
-  "name": "virtualization-ai-301",
+  "name": "virtualization-ai-401",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "test:factory": "python3 -m unittest discover -s tests -v",
-    "lint:helm": "helm lint charts/virtualization-ai-301 && helm template virtualization-ai-301 charts/virtualization-ai-301 >/dev/null",
+    "lint:helm": "helm lint charts/virtualization-ai-401 && helm template virtualization-ai-401 charts/virtualization-ai-401 >/dev/null",
     "validate:blueprint": "node scripts/validate-blueprint.mjs demo-blueprint.yaml",
     "test:visual": "playwright test",
     "verify:offline": "node scripts/verify-offline.mjs",

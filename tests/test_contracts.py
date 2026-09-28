@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from jsonschema import Draft202012Validator, FormatChecker
+from jsonschema import Draft202012Validator, FormatChecker, RefResolver
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,41 +15,34 @@ def load_json(relative: str):
 
 class GovernanceContractTests(unittest.TestCase):
     def validate(self, schema: str, example: str):
-        validator = Draft202012Validator(load_json(schema), format_checker=FormatChecker())
+        validator = Draft202012Validator(load_json(schema), format_checker=FormatChecker(), resolver=RefResolver((CONTRACTS / schema).as_uri(), load_json(schema)))
         errors = sorted(validator.iter_errors(load_json(example)), key=lambda error: list(error.path))
         self.assertEqual(errors, [], "\n".join(error.message for error in errors))
 
-    def test_examples_satisfy_versioned_schemas(self):
-        self.validate("modernization-request.schema.json", "examples/allowed-request.json")
-        for name in ("allowed-response.json", "identity-refused-response.json", "placement-unknown-response.json", "model-unavailable-response.json"):
-            self.validate("modernization-response.schema.json", f"examples/{name}")
-        self.validate("evidence-record.schema.json", "examples/allowed-evidence.json")
+    def test_examples_satisfy_401_schemas(self):
+        for name in ("approved-migration-request.json", "dependency-outage-request.json", "application-failure-request.json"):
+            self.validate("operation-request.schema.json", f"examples/{name}")
+        for name in ("approved-migration-response.json", "dependency-outage-response.json", "application-failure-response.json"):
+            self.validate("operation-response.schema.json", f"examples/{name}")
+        self.validate("evidence-record.schema.json", "examples/approved-evidence.json")
 
-    def test_failure_precedence_is_explicit(self):
+    def test_policy_is_deterministic_and_nonremediating(self):
         policy = load_json("governance-policy.json")
-        self.assertEqual(policy["precedence"], ["IDENTITY", "NETWORK", "OBSERVABILITY", "PLACEMENT", "MODEL"])
-        self.assertEqual(policy["outcomes"]["IDENTITY_MISMATCH"], "REFUSE")
-        self.assertEqual(policy["outcomes"]["NETWORK_MISMATCH"], "REFUSE")
-        self.assertEqual(policy["outcomes"]["PLACEMENT_UNKNOWN"], "ABSTAIN")
-        self.assertEqual(policy["outcomes"]["MODEL_UNAVAILABLE"], "ABSTAIN")
+        self.assertEqual([rule["priority"] for rule in policy["rules"]], sorted(rule["priority"] for rule in policy["rules"]))
+        self.assertEqual({rule["decision"] for rule in policy["rules"]}, {"ALLOW_REVIEW", "REFUSE", "ABSTAIN"})
+        self.assertFalse(policy["execution"]["automated_remediation"])
+        self.assertFalse(policy["execution"]["llm_may_execute"])
 
-    def test_refused_and_abstained_examples_have_no_advisory_or_ai_claim(self):
-        for name in ("identity-refused-response.json", "placement-unknown-response.json", "model-unavailable-response.json"):
-            response = load_json(f"examples/{name}")
-            self.assertNotIn("advisory", response)
-            self.assertFalse(response["ai_participated"])
-            self.assertEqual(response["authority"], "HUMAN_REVIEW_REQUIRED")
+    def test_examples_never_grant_automation_authority(self):
+        for path in (CONTRACTS / "examples").glob("*-response.json"):
+            response = json.loads(path.read_text())
+            self.assertFalse(response["authority"]["automated_action_performed"])
+            self.assertEqual(response["authority"]["llm_authority"], "NONE")
 
-    def test_request_has_no_secret_values(self):
-        request = load_json("examples/allowed-request.json")
-        lowered = json.dumps(request).lower()
-        for forbidden in ("api_key", "password", "bearer", "secret_value"):
-            self.assertNotIn(forbidden, lowered)
-
-    def test_openapi_exposes_only_bounded_paths(self):
+    def test_openapi_exposes_bounded_operations_only(self):
         spec = yaml.safe_load((CONTRACTS / "openapi.yaml").read_text())
         self.assertEqual(spec["openapi"], "3.1.0")
-        self.assertEqual(set(spec["paths"]), {"/api/v1/modernize", "/api/v1/evidence/{evidence_id}", "/metrics", "/healthz"})
+        self.assertEqual(set(spec["paths"]), {"/api/v1/operations", "/api/v1/operations/{request_id}", "/metrics", "/healthz"})
 
 
 if __name__ == "__main__":

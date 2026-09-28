@@ -214,7 +214,7 @@ def metrics_text() -> str:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "virtualization-ai-301/1"
+    server_version = "virtualization-ai-401/1"
 
     def send_json(self, status: int, value: object) -> None:
         encoded = json.dumps(value, separators=(",", ":")).encode()

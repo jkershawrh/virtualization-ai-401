@@ -1,4 +1,4 @@
-name: Virtualization + AI 301 immutable images
+name: Virtualization + AI 401 immutable images
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ permissions:
   packages: write
   id-token: write
 concurrency:
-  group: virtualization-ai-301-release-${{ inputs.expected_sha }}
+  group: virtualization-ai-401-release-${{ inputs.expected_sha }}
   cancel-in-progress: false
 jobs:
   qualify:
@@ -39,8 +39,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {component: presentation, file: Containerfile, image: virtualization-ai-301-presentation}
-          - {component: adapter, file: workload/Containerfile, image: virtualization-ai-301-adapter}
+          - {component: presentation, file: Containerfile, image: virtualization-ai-401-presentation}
+          - {component: adapter, file: workload/Containerfile, image: virtualization-ai-401-adapter}
     steps:
       - uses: actions/checkout@v4
         with: {ref: "${{ inputs.expected_sha }}"}
@@ -89,7 +89,7 @@ jobs:
           cosign verify-attestation --type slsaprovenance --certificate-identity="$identity" --certificate-oidc-issuer="$issuer" "$DIGEST_REF" > "provenance-verification-${{ matrix.component }}.json"
       - uses: actions/upload-artifact@v4
         with:
-          name: "virtualization-ai-301-${{ matrix.component }}-${{ inputs.expected_sha }}"
+          name: "virtualization-ai-401-${{ matrix.component }}-${{ inputs.expected_sha }}"
           retention-days: 90
           path: |
             image-${{ matrix.component }}.txt

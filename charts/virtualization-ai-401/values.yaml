@@ -1,13 +1,13 @@
 adapter:
   replicas: 1
   mode: rehearsal
-  image: {repository: localhost/virtualization-ai-301-adapter, tag: 0.1.0, digest: "", pullPolicy: IfNotPresent}
+  image: {repository: localhost/virtualization-ai-401-adapter, tag: 0.1.0, digest: "", pullPolicy: IfNotPresent}
   placement: {nodeSelector: {kubernetes.io/arch: amd64}}
   model: {secretName: "", endpointKey: endpoint, modelKey: model, providerKey: provider, hardwareKey: hardware, apiKeyKey: api-key, egressCIDR: ""}
   resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: 500m, memory: 256Mi}}
 presentation:
   enabled: true
-  image: {repository: localhost/virtualization-ai-301-presentation, tag: 0.1.0, digest: "", pullPolicy: IfNotPresent}
+  image: {repository: localhost/virtualization-ai-401-presentation, tag: 0.1.0, digest: "", pullPolicy: IfNotPresent}
   resources: {requests: {cpu: 25m, memory: 32Mi}, limits: {cpu: 100m, memory: 96Mi}}
 vm:
   enabled: true

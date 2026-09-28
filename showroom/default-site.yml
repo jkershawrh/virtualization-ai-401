@@ -1,6 +1,6 @@
 site:
-  title: Virtualization + AI 301
-  start_page: virtualization-ai-301::index.adoc
+  title: Virtualization + AI 401
+  start_page: virtualization-ai-401::index.adoc
 content:
   sources: [{url: ./content, start_path: .}]
 ui:

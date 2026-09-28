@@ -1,7 +1,7 @@
 = 7. Reclaim and prove residue
 
 Before deletion, inventory objects carrying
-`lab.redhat.com/candidate=virtualization-ai-301`. Uninstall the release and
+`lab.redhat.com/candidate=virtualization-ai-401`. Uninstall the release and
 remove only resources created for your candidate namespace.
 
 Repeat the labeled inventory. The acceptance result is zero matching

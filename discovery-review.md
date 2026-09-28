@@ -2,7 +2,7 @@
 
 ## Decision
 
-Proceed as a distinct 401 catalog item after Virtualization + AI 301. The 301
+Proceed as a distinct 401 catalog item after Virtualization + AI 401. The 301
 item establishes identity, network, placement, observability, and a governed AI
 advisory path. The 401 item earns its level by operating that same system through
 maintenance, migration, dependency failure, and recovery without losing policy,
@@ -12,7 +12,7 @@ correlation, or human control.
 
 | Source | Exact revision | Reused pattern | Boundary |
 |---|---|---|---|
-| Virtualization + AI 301 | pending published immutable receipt | Triforce-derived presentation shell, governed adapter, evidence chain, handoff schema | No implementation copy until the revision and digests are final |
+| Virtualization + AI 401 | pending published immutable receipt | Triforce-derived presentation shell, governed adapter, evidence chain, handoff schema | No implementation copy until the revision and digests are final |
 | Virtualization + AI 201 | `70a35189cce95b87240734ec7961a67685d4cb27` | workload-to-model separation and honest rehearsal state | Prerequisite only |
 | OpenShift Virtualization Roadshow 2026 | `5d296c9c9fbe773af09c16935c78b89baebd1f81` | VM lifecycle, live migration, snapshots, restore, backup/recovery concepts | Selected operational concepts; no wholesale content copy |
 

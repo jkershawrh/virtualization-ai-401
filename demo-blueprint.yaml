@@ -7,7 +7,7 @@ identity:
   status: discovery_contract_design
 sources:
   prerequisite:
-    repository: https://github.com/jkershawrh/virtualization-ai-301
+    repository: https://github.com/jkershawrh/virtualization-ai-401
     revision: PENDING_IMMUTABLE_RELEASE_RECEIPT
   supplemental:
     repository: https://github.com/jkershawrh/ocp-virt-roadshow-2026-showroom

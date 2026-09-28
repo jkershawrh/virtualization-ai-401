@@ -4,7 +4,7 @@ The discovery and contract intent exist, but implementation is intentionally RED
 
 Missing gates:
 
-- the prerequisite Virtualization + AI 301 immutable release receipt;
+- the prerequisite Virtualization + AI 401 immutable release receipt;
 - typed operation request, response, evidence, approval, and validation schemas;
 - deterministic policy implementation and tests for ALLOW_REVIEW, REFUSE, and
   ABSTAIN;

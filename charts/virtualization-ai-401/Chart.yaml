@@ -1,5 +1,5 @@
 apiVersion: v2
-name: virtualization-ai-301
+name: virtualization-ai-401
 description: Governed VM modernization development candidate
 type: application
 version: 0.1.0

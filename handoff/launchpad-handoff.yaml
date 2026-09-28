@@ -1,7 +1,7 @@
 version: 1
 status: PROPOSED_NOT_CERTIFIED
 source:
-  repository: https://github.com/jkershawrh/virtualization-ai-301
+  repository: https://github.com/jkershawrh/virtualization-ai-401
   revision: TO_BE_FILLED_BY_RELEASE_RECEIPT
   prerequisite: https://github.com/jkershawrh/virtualization-ai-201@70a35189cce95b87240734ec7961a67685d4cb27
 candidate:

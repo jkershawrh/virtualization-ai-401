@@ -7,7 +7,7 @@ move through maintenance and failure conditions.
 
 The current state is discovery and contract design only. It is not orderable,
 certified, deployable, or promoted. Implementation will be based on the exact
-immutable Virtualization + AI 301 source revision after that release receipt is
+immutable Virtualization + AI 401 source revision after that release receipt is
 complete.
 
 ## Proposed learner outcome

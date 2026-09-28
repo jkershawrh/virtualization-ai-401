@@ -8,7 +8,7 @@ from urllib.request import Request, urlopen
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("request")
-    parser.add_argument("--endpoint", default="http://virtualization-ai-301-adapter:8080/api/v1/modernize")
+    parser.add_argument("--endpoint", default="http://virtualization-ai-401-adapter:8080/api/v1/modernize")
     args = parser.parse_args()
     payload = open(args.request, encoding="utf-8").read().encode()
     request = Request(args.endpoint, payload, {"Content-Type": "application/json"}, method="POST")

@@ -13,7 +13,7 @@ class ReleaseWorkflowTests(unittest.TestCase):
         for required in (
             "expected_sha", "linux/amd64", "severity-cutoff: high", "fail-build: true",
             "spdx-json", "cosign sign", "slsaprovenance", "docker pull \"$digest_ref\"",
-            "virtualization-ai-301-presentation", "virtualization-ai-301-adapter",
+            "virtualization-ai-401-presentation", "virtualization-ai-401-operations-adapter",
         ):
             self.assertIn(required, text)
 
