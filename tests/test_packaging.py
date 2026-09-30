@@ -35,6 +35,10 @@ class PackagingTests(unittest.TestCase):
         # provide the destination ingress domain as an explicit deployment value.
         self.assertIn("virtualization-ai-401.routeHost", presentation)
         self.assertIn("ingressDomain", values)
+        self.assertIn(
+            "--set presentation.ingressDomain=apps.example.invalid",
+            (ROOT / "package.json").read_text(),
+        )
 
 
 if __name__ == "__main__":

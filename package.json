@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "test:factory": "python3 -m unittest discover -s tests -v",
-    "lint:helm": "helm lint charts/virtualization-ai-401 && helm template virtualization-ai-401 charts/virtualization-ai-401 >/dev/null",
+    "lint:helm": "helm lint charts/virtualization-ai-401 --set presentation.ingressDomain=apps.example.invalid && helm template virtualization-ai-401 charts/virtualization-ai-401 --set presentation.ingressDomain=apps.example.invalid >/dev/null",
     "validate:blueprint": "node scripts/validate-blueprint.mjs demo-blueprint.yaml",
     "test:visual": "playwright test",
     "verify:offline": "node scripts/verify-offline.mjs",
