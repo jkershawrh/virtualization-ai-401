@@ -12,6 +12,14 @@ class FactoryTests(unittest.TestCase):
         required = ["workload/app.py", "workload/vm_client.py", "workload/Containerfile", "contracts/operation-request.schema.json", "contracts/operation-response.schema.json", "charts/virtualization-ai-401/Chart.yaml", "charts/virtualization-ai-401/templates/persistentvolumeclaim.yaml", "showroom/content/modules/ROOT/pages/01-observe.adoc", "showroom/content/modules/ROOT/pages/07-learn-reclaim.adoc", "handoff/launchpad-handoff.yaml", ".github/workflows/release-images.yml"]
         self.assertEqual([name for name in required if not (ROOT / name).exists()], [])
 
+    def test_showroom_playbook_exposes_mounted_content_to_runtime(self):
+        playbook = yaml.safe_load(
+            (ROOT / "showroom/default-site.yml").read_text()
+        )
+        source = playbook["content"]["sources"][0]
+        self.assertEqual(source["url"], "/showroom/repo")
+        self.assertEqual(source["start_path"], "showroom/content")
+
     def test_presentation_has_exactly_seven_journey_scenes(self):
         config = (ROOT / "src/demo.config.ts").read_text()
         self.assertEqual(config.count("type:"), 7)

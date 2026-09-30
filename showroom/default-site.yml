@@ -2,6 +2,9 @@ site:
   title: Virtualization + AI 401
   start_page: virtualization-ai-401::index.adoc
 content:
-  sources: [{url: ./content, start_path: .}]
+  sources:
+    - url: /showroom/repo
+      branches: HEAD
+      start_path: showroom/content
 ui:
   bundle: {url: https://github.com/rhpds/showroom_theme_rhdp/releases/latest/download/ui-bundle.zip, snapshot: true}
