@@ -34,6 +34,7 @@ export default function App() {
   const [position, setPosition] = useState<Position>(initial.position)
   const [finale, setFinale] = useState(initial.finale)
   const [showPresenterPrompt, setShowPresenterPrompt] = useState(false)
+  const appRef = useRef<HTMLDivElement>(null)
   const touchStart = useRef<number | null>(null)
   const warnings = useMemo(() => validateDemoConfig(demoConfig), [])
   const safeAct = Math.min(position.act, demoConfig.acts.length - 1)
@@ -42,6 +43,13 @@ export default function App() {
   const scene = act.scenes[safeScene]
 
   useEffect(() => warnings.forEach((warning) => console.warn(`[demo-story] ${warning}`)), [warnings])
+
+  useEffect(() => {
+    // Establish a page-local focus origin after a direct scene URL loads. This
+    // keeps the first Tab deterministic in headless and mobile browsers without
+    // placing the non-interactive stage in the normal tab order.
+    if (started && document.activeElement === document.body) appRef.current?.focus()
+  }, [started])
 
   const navigate = useCallback((next: Position, nextFinale = false, replace = false) => {
     setStarted(true)
@@ -93,7 +101,9 @@ export default function App() {
 
   return (
     <div
+      ref={appRef}
       className="app"
+      tabIndex={-1}
       onTouchStart={(event) => { touchStart.current = event.changedTouches[0].clientX }}
       onTouchEnd={(event) => {
         if (touchStart.current === null) return
