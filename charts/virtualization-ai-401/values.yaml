@@ -8,6 +8,7 @@ operationsAdapter:
   resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: 500m, memory: 256Mi}}
 presentation:
   enabled: true
+  ingressDomain: ""
   image: {repository: localhost/virtualization-ai-401-presentation, tag: 0.1.0, digest: "", pullPolicy: IfNotPresent}
   resources: {requests: {cpu: 25m, memory: 32Mi}, limits: {cpu: 100m, memory: 96Mi}}
 vm:

@@ -17,7 +17,7 @@ spec:
       serviceAccountName: virtualization-ai-401
       automountServiceAccountToken: false
       nodeSelector: {{- toYaml .Values.operationsAdapter.placement.nodeSelector | nindent 8 }}
-      securityContext: {runAsNonRoot: true, fsGroup: 65532, seccompProfile: {type: RuntimeDefault}}
+      securityContext: {runAsNonRoot: true, seccompProfile: {type: RuntimeDefault}}
       containers:
         - name: operations-adapter
           image: {{ include "virtualization-ai-401.image" .Values.operationsAdapter.image | quote }}

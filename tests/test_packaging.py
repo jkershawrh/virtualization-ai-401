@@ -23,6 +23,19 @@ class PackagingTests(unittest.TestCase):
                 self.assertRegex(values[component]["image"]["digest"], r"^sha256:[0-9a-f]{64}$")
             self.assertNotIn("TO_BE_FILLED", path.read_text())
 
+    def test_openshift_security_and_route_contracts_are_portable(self):
+        adapter = (CHART / "templates" / "adapter.yaml").read_text()
+        presentation = (CHART / "templates" / "presentation.yaml").read_text()
+        values = (CHART / "values.yaml").read_text()
+
+        # OpenShift assigns a namespace-specific supplemental group. A fixed
+        # fsGroup is rejected by the restricted SCC on destination clusters.
+        self.assertNotIn("fsGroup: 65532", adapter)
+        # Per-seat namespaces are long. Keep the first DNS label bounded and
+        # provide the destination ingress domain as an explicit deployment value.
+        self.assertIn("virtualization-ai-401.routeHost", presentation)
+        self.assertIn("ingressDomain", values)
+
 
 if __name__ == "__main__":
     unittest.main()
