@@ -14,7 +14,7 @@ A known incompatibility returns `REFUSE`. Stale or incomplete evidence returns
 
 [source,bash,role="execute"]
 ----
-curl -fsS "$SHOWROOM_URL/fixtures/healthy-migration.json" -o /tmp/op-healthy.json
+curl -fsS "$PRESENTATION_URL/fixtures/healthy-migration.json" -o /tmp/op-healthy.json
 jq '{request_id,operation,source_state,decision,reason_codes}' /tmp/op-healthy.json
 ----
 

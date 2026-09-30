@@ -15,7 +15,7 @@ failure after infrastructure success must `REFUSE`.
 [source,bash,role="execute"]
 ----
 for scenario in dependency-outage application-failure; do
-  curl -fsS "$SHOWROOM_URL/fixtures/${scenario}-request.json" -o "/tmp/${scenario}.json"
+  curl -fsS "$PRESENTATION_URL/fixtures/${scenario}-request.json" -o "/tmp/${scenario}.json"
   curl -fsS -H 'Content-Type: application/json' --data-binary "@/tmp/${scenario}.json" \
     "$OPS_URL/api/v1/operations" | tee "/tmp/${scenario}-result.json" | jq '{request_id,decision,reason_codes,validation}'
 done

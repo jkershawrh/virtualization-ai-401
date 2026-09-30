@@ -25,6 +25,8 @@ class ShowroomTests(unittest.TestCase):
         self.assertGreaterEqual(pages.count('role="execute"'), 10)
         for contract in ("/healthz", "/metrics", "/api/v1/operations", "ai_participated"):
             self.assertIn(contract, pages)
+        self.assertIn("PRESENTATION_URL", pages)
+        self.assertNotIn("SHOWROOM_URL", pages)
         self.assertIn("VirtualMachines", pages)
         self.assertIn("PersistentVolumeClaims", pages)
         self.assertIn("Virtualization + AI 301", pages)

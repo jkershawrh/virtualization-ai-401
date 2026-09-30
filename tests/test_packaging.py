@@ -12,6 +12,7 @@ class PackagingTests(unittest.TestCase):
             self.assertIn(term, rendered)
         self.assertNotIn("kind: Secret", rendered)
         self.assertIn("automountServiceAccountToken: false", rendered)
+        self.assertIn("podSelector: {}", rendered)
 
     def test_published_values_are_absent_or_exact_release_receipts(self):
         path = CHART / "values.published.yaml"

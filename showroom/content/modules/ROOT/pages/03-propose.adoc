@@ -14,7 +14,7 @@ fleet actions are outside this level.
 
 [source,bash,role="execute"]
 ----
-curl -fsS "$SHOWROOM_URL/fixtures/approved-migration-request.json" -o /tmp/op-request.json
+curl -fsS "$PRESENTATION_URL/fixtures/approved-migration-request.json" -o /tmp/op-request.json
 jq '{request_id,operation,target,approved_by:.approval.approved_by}' /tmp/op-request.json
 ----
 

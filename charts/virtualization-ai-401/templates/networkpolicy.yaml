@@ -17,6 +17,9 @@ spec:
   policyTypes: [Ingress, Egress]
   ingress:
     - from:
+        # Every seat has its own namespace. This admits the learner terminal
+        # without exposing the internal adapter across namespaces.
+        - podSelector: {}
         - podSelector: {matchLabels: {kubevirt.io: virt-launcher, vm.kubevirt.io/name: {{ .Values.vm.name }}}}
         - podSelector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-presentation}}
       ports: [{protocol: TCP, port: 8080}]

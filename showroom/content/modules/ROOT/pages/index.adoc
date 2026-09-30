@@ -26,8 +26,8 @@ execution authority.
 ----
 export LAB_NAMESPACE="$(oc project -q)"
 export OPS_URL="http://virtualization-ai-401-operations-adapter:8080"
-export SHOWROOM_URL="https://$(oc get route -o json | jq -r '.items[] | select(.spec.host | startswith("showroom-")) | .spec.host' | head -1)"
-printf 'namespace=%s\nadapter=%s\nshowroom=%s\n' "$LAB_NAMESPACE" "$OPS_URL" "$SHOWROOM_URL"
+export PRESENTATION_URL="https://$(oc get route virtualization-ai-401 -n "$LAB_NAMESPACE" -o jsonpath='{.spec.host}')"
+printf 'namespace=%s\nadapter=%s\npresentation=%s\n' "$LAB_NAMESPACE" "$OPS_URL" "$PRESENTATION_URL"
 ----
 
 == Prove
