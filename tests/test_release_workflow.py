@@ -25,6 +25,13 @@ class ReleaseWorkflowTests(unittest.TestCase):
                     self.assertRegex(image, r"@sha256:[0-9a-f]{64}$")
                     self.assertNotIn(":latest", image)
 
+    def test_presentation_bounds_nginx_workers_for_shared_lab_nodes(self):
+        config = (ROOT / "nginx-main.conf").read_text()
+        containerfile = (ROOT / "Containerfile").read_text()
+        self.assertIn("worker_processes 2;", config)
+        self.assertNotIn("worker_processes auto;", config)
+        self.assertIn("COPY nginx-main.conf /etc/nginx/nginx.conf", containerfile)
+
     def test_handoff_contains_no_credentials_or_certification(self):
         text = (ROOT / "handoff/launchpad-handoff.yaml").read_text().lower()
         for forbidden in ("api_key:", "password:", "token:", "bearer "):
