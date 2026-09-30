@@ -1,14 +1,36 @@
-= 7. LEARN and reclaim
+= 7. LEARN and hand off
 
-Restart the operations adapter and retrieve the earlier request by identifier.
-The PVC-backed JSONL ledger must retain its ordered, digest-bearing records.
-Export only evidence; do not export credentials or unrelated metadata.
+== Show
 
-Inventory resources labeled `lab.redhat.com/candidate=virtualization-ai-401`,
-uninstall the candidate release, and repeat the inventory. Acceptance requires
-zero residue for candidate Deployments, Pods, Services, Routes, NetworkPolicies,
-ServiceAccounts, VirtualMachines, ServiceMonitors, and the evidence PVC.
+The PVC-backed ledger preserves the evidence path by request identifier.
 
-Do not remove shared operators, CRDs, nodes, storage classes, Secrets, or
-roadshow resources. `ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN` remain evidence—not
-Launchpad certification or promotion.
+== Learn
+
+Participants clean up only their local files and port-forwards. Launchpad owns namespace reclamation
+and zero residue verification; learners must not uninstall
+the lab, delete the namespace, operators, CRDs, nodes, storage classes, or
+Secrets.
+
+== Do
+
+[source,bash,role="execute"]
+----
+REQUEST_ID="$(jq -r .request_id /tmp/op-result.json)"
+curl -fsS "$OPS_URL/api/v1/operations/$REQUEST_ID" | tee /tmp/op-ledger.json | jq '{request_id,states:[.evidence[].state],records:(.evidence|length)}'
+----
+
+[source,bash,role="execute"]
+----
+curl -fsS "$OPS_URL/metrics" | grep '^virtualization_ai_401_'
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+jq -e '.evidence | length == 7' /tmp/op-ledger.json
+rm -f /tmp/op-{healthy,request,result,ledger}.json /tmp/dependency-outage*.json /tmp/application-failure*.json
+----
+
+You have operated one bounded request. Virtualization + AI 501 is the next
+step: qualify a fleet under declared capacity, SLO, and correlation boundaries.

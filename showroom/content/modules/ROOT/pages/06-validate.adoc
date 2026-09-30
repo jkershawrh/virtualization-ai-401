@@ -1,14 +1,30 @@
-= 6. VALIDATE
+= 6. VALIDATE three outcomes
 
-Exercise three conditions through the same contract:
+== Show
 
-|===
-|Condition |Infrastructure |Application |AI path |Decision
-|Healthy migration |PASS |PASS |PASS |`ALLOW_REVIEW`
-|AI dependency outage |PASS |PASS |FAIL |`ABSTAIN`
-|Application failure after platform success |PASS |FAIL |PASS |`REFUSE`
-|===
+Healthy operation, dependency outage, and post-operation application failure
+exercise three distinct operational outcomes.
 
-Do not equate infrastructure completion with service recovery. When the AI
-dependency is unavailable, preserve degraded behavior and do not fabricate an
-explanation or claim model participation.
+== Learn
+
+Infrastructure success with AI dependency failure must `ABSTAIN`; application
+failure after infrastructure success must `REFUSE`.
+
+== Do
+
+[source,bash,role="execute"]
+----
+for scenario in dependency-outage application-failure; do
+  curl -fsS "$SHOWROOM_URL/fixtures/${scenario}-request.json" -o "/tmp/${scenario}.json"
+  curl -fsS -H 'Content-Type: application/json' --data-binary "@/tmp/${scenario}.json" \
+    "$OPS_URL/api/v1/operations" | tee "/tmp/${scenario}-result.json" | jq '{request_id,decision,reason_codes,validation}'
+done
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+test "$(jq -r .decision /tmp/dependency-outage-result.json)" = ABSTAIN
+test "$(jq -r .decision /tmp/application-failure-result.json)" = REFUSE
+----

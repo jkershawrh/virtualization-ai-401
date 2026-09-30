@@ -18,6 +18,20 @@ class ShowroomTests(unittest.TestCase):
         self.assertLess(len(files), 20)
         self.assertFalse(any("2026_spring" in path.as_posix() for path in files))
 
+    def test_journey_is_executable_truthful_and_participant_safe(self):
+        pages = "\n".join(path.read_text() for path in sorted(PAGES.glob("*.adoc")))
+        for heading in ("Show", "Learn", "Do", "Prove"):
+            self.assertIn(f"== {heading}", pages)
+        self.assertGreaterEqual(pages.count('role="execute"'), 10)
+        for contract in ("/healthz", "/metrics", "/api/v1/operations", "ai_participated"):
+            self.assertIn(contract, pages)
+        self.assertIn("VirtualMachines", pages)
+        self.assertIn("PersistentVolumeClaims", pages)
+        self.assertIn("Virtualization + AI 301", pages)
+        self.assertIn("Virtualization + AI 501", pages)
+        self.assertIn("Launchpad owns namespace reclamation", pages)
+        self.assertNotIn("uninstall the candidate release", pages.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,13 +1,40 @@
 = Operate Hybrid VM and AI Workloads
 
-This separate 90–120 minute level-401 lab starts from the immutable 301 source
-revision `91e30a4af72bb4a15a4e5dfe2f29abb5692c698f`. Follow
-`OBSERVE → PREFLIGHT → PROPOSE → APPROVE → EXECUTE → VALIDATE → LEARN` for a
-planned migration or recovery validation.
+Virtualization + AI 301 proved that a VM can reach a governed AI service. This
+level-401 lab puts that path into day-two operation: one planned change, one
+human decision, and one durable evidence trail.
 
-The operations adapter evaluates supplied evidence and writes a durable ledger.
-It cannot migrate, restore, remediate, certify, or promote anything. Begin in
-`REHEARSAL`; say `LIVE` only when current target evidence proves every claim.
+The operations adapter evaluates supplied observations. It cannot migrate,
+restore, remediate, certify, or promote anything. The lab begins in
+`REHEARSAL`; `LIVE` is truthful only when current-session evidence supports it.
 
-You will exercise `ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN`, including dependency
-degradation and infrastructure-success/application-failure detection.
+== Show
+
+The operator must distinguish platform success from application success and AI
+dependency health. A completed VM operation is not automatically a recovered
+service.
+
+== Learn
+
+Follow `OBSERVE → PREFLIGHT → PROPOSE → APPROVE → EXECUTE → VALIDATE → LEARN`.
+`ALLOW_REVIEW`, `REFUSE`, and `ABSTAIN` are recommendations for a human—not
+execution authority.
+
+== Do
+
+[source,bash,role="execute"]
+----
+export LAB_NAMESPACE="$(oc project -q)"
+export OPS_URL="http://virtualization-ai-401-operations-adapter:8080"
+export SHOWROOM_URL="https://$(oc get route -o json | jq -r '.items[] | select(.spec.host | startswith("showroom-")) | .spec.host' | head -1)"
+printf 'namespace=%s\nadapter=%s\nshowroom=%s\n' "$LAB_NAMESPACE" "$OPS_URL" "$SHOWROOM_URL"
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+curl -fsS "$OPS_URL/healthz" | jq '{status,mode,authority}'
+----
+
+The expected starting mode is `REHEARSAL`, with human review required.

@@ -1,8 +1,26 @@
 = 4. APPROVE
 
-A named human reviewer supplies the matching operation digest and an expiry.
-Digest mismatch or expiry must `REFUSE`. The adapter, deterministic policy, and
-optional language model have no approval or execution authority.
+== Show
 
-Record `HUMAN_APPROVAL_REQUIRED` in the review worksheet even after approval:
-the final interpretation and any later target action remain human-owned.
+Only a named, time-bounded human approval can move the evidence journey beyond
+proposal. `HUMAN_APPROVAL_REQUIRED` remains the authority boundary. The adapter
+and optional language model have no approval authority.
+
+== Learn
+
+Digest mismatch or expiry must `REFUSE`. The final interpretation and any real
+target action remain human-owned.
+
+== Do
+
+[source,bash,role="execute"]
+----
+jq '{approved_by:.approval.approved_by,expires_at:.approval.expires_at,digest:.approval.operation_digest}' /tmp/op-request.json
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+test "$(jq -r '.authority.human_review_required' /tmp/op-healthy.json)" = true
+----

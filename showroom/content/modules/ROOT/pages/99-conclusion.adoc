@@ -2,5 +2,6 @@
 
 You operated one bounded VM and AI service path with explicit human approval,
 separate infrastructure and application validation, degraded dependency
-behavior, durable evidence, and zero-residue cleanup. The factory still has no
-certification or promotion authority. Hand the receipt bundle to Launchpad.
+behavior, and durable evidence. Launchpad—not the participant—performs and
+certifies zero-residue cleanup. Hand the evidence bundle to the reviewer, then
+continue to Virtualization + AI 501 for fleet qualification.

@@ -1,8 +1,26 @@
 = 3. PROPOSE
 
-Create the canonical digest for the exact request without its approval block.
-The proposal identifies one operation—`LIVE_MIGRATE`, `VALIDATE_RECOVERY`, or
-`RESTORE_REVIEW`—and one VM. No wildcard or fleet action is allowed.
+== Show
 
-With no approval, expect `ALLOW_REVIEW / HUMAN_APPROVAL_REQUIRED`. The durable
-ledger must end at `PROPOSE` and contain no automatic action.
+A proposal names exactly one VM and one operation: `LIVE_MIGRATE`,
+`VALIDATE_RECOVERY`, or `RESTORE_REVIEW`.
+
+== Learn
+
+The approval digest binds the reviewer to the exact request. Wildcards and
+fleet actions are outside this level.
+
+== Do
+
+[source,bash,role="execute"]
+----
+curl -fsS "$SHOWROOM_URL/fixtures/approved-migration-request.json" -o /tmp/op-request.json
+jq '{request_id,operation,target,approved_by:.approval.approved_by}' /tmp/op-request.json
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+jq -e '.target.virtual_machine != "" and (.approval.operation_digest | startswith("sha256:"))' /tmp/op-request.json
+----

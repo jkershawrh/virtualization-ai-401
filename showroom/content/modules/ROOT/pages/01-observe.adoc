@@ -1,9 +1,31 @@
 = 1. OBSERVE
 
-Record the target OpenShift, OpenShift Virtualization, namespace, VM/VMI,
-network, storage, application, and AI dependency identities. Mark each fact
-`LIVE`, `REHEARSAL`, or `OFFLINE`, and retain its timestamp and digest.
+== Show
 
-Do not infer model, provider, Intel placement, CPU allocation, or utilization.
-Unknown facts remain unknown. Confirm the adapter has no cluster credential and
-cannot perform automated remediation. Factory fixtures are `REHEARSAL`.
+Open the OpenShift Console *VirtualMachines* view for this project. Observe the
+`operations-client` VM separately from the operations adapter Deployment, then
+open *Storage → PersistentVolumeClaims* to see the evidence ledger claim.
+
+== Learn
+
+VM identity, storage, service health, and AI dependency health are different
+facts. Never infer model, provider, Intel placement, CPU allocation, or
+utilization from a Running pod.
+
+== Do
+
+[source,bash,role="execute"]
+----
+oc get virtualmachines,virtualmachineinstances -n "$LAB_NAMESPACE" -o wide
+----
+
+[source,bash,role="execute"]
+----
+oc get deployment,service,persistentvolumeclaims -n "$LAB_NAMESPACE" \
+  -l app.kubernetes.io/instance=virtualization-ai-401
+----
+
+== Prove
+
+Record which facts are directly observed. Factory fixtures remain
+`REHEARSAL`; unknown facts remain unknown.

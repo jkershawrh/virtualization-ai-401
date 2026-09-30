@@ -1,8 +1,28 @@
 = 2. PREFLIGHT
 
-Submit identity, network, storage, freshness, and correlation observations to
-the deterministic policy. A known identity, network, or storage incompatibility
-must `REFUSE`. Stale evidence or an incomplete correlation must `ABSTAIN`.
+== Show
 
-A complete preflight returns `ALLOW_REVIEW`, not execution permission. Preserve
-the ordered reason and verify no `EXECUTE` ledger record exists yet.
+The deterministic gate checks identity, network, storage, freshness, and
+correlation before any proposal advances.
+
+== Learn
+
+A known incompatibility returns `REFUSE`. Stale or incomplete evidence returns
+`ABSTAIN`. Complete preflight returns `ALLOW_REVIEW`, not permission to act.
+
+== Do
+
+[source,bash,role="execute"]
+----
+curl -fsS "$SHOWROOM_URL/fixtures/healthy-migration.json" -o /tmp/op-healthy.json
+jq '{request_id,operation,source_state,decision,reason_codes}' /tmp/op-healthy.json
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+jq -e '.source_state == "REHEARSAL" and .authority.automated_action_performed == false' /tmp/op-healthy.json
+----
+
+The presentation fixture is evidence of the contract, not a current operation.

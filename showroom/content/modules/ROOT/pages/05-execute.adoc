@@ -1,9 +1,30 @@
-= 5. EXECUTE
+= 5. EXECUTE the rehearsal
 
-In `REHEARSAL`, submit the healthy migration fixture and verify seven ordered
-records: `OBSERVE`, `PREFLIGHT`, `PROPOSE`, `APPROVE`, `EXECUTE`, `VALIDATE`,
-and `LEARN`. The `EXECUTE` record is a representative observation, not a change.
+== Show
 
-In a development target, a separately authorized platform operator performs the
-planned migration or recovery. The adapter only accepts the observed result.
-No automated remediation is permitted.
+In `REHEARSAL`, the `EXECUTE` record is a representative observation. It does
+not change a VM.
+
+== Learn
+
+The same API accepts observations after a separately authorized operator has
+acted. It never performs the operation itself.
+
+== Do
+
+[source,bash,role="execute"]
+----
+curl -fsS -H 'Content-Type: application/json' --data-binary @/tmp/op-request.json \
+  "$OPS_URL/api/v1/operations" | tee /tmp/op-result.json | \
+  jq '{request_id,decision,source_state,ai_participated,authority,states:[.evidence[].state]}'
+----
+
+== Prove
+
+[source,bash,role="execute"]
+----
+jq -e '.source_state == "REHEARSAL" and .ai_participated == false and .authority.automated_action_performed == false' /tmp/op-result.json
+----
+
+An explanation is model-backed only when `source_state` is `LIVE` and
+`ai_participated` is `true` with current model evidence.
