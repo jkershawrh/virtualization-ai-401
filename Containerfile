@@ -5,7 +5,7 @@ RUN npm ci
 COPY --chown=1001:0 . .
 RUN npm run build
 
-FROM cgr.dev/chainguard/nginx@sha256:57e924b3b177cf480ce53cdcad2982b44093494c217d2bc95f2fb5b6a0950a5a
+FROM cgr.dev/chainguard/nginx@sha256:5cafbe058dc2160c9419af8ff62d2132c0ab1942d125e9dbf2fb0dd384f9e3f0
 COPY --from=build /opt/app-root/src/dist /usr/share/nginx/html
 COPY nginx-main.conf /etc/nginx/nginx.conf
 COPY nginx.conf /etc/nginx/http.d/default.conf
