@@ -7,4 +7,5 @@ content:
       branches: HEAD
       start_path: showroom/content
 ui:
+  supplemental_files: ./supplemental-ui
   bundle: {url: https://github.com/rhpds/showroom_theme_rhdp/releases/latest/download/ui-bundle.zip, snapshot: true}

@@ -22,7 +22,7 @@ oc get virtualmachines,virtualmachineinstances -n "$LAB_NAMESPACE" -o wide
 [source,bash,role="execute"]
 ----
 oc get deployment,service,persistentvolumeclaims -n "$LAB_NAMESPACE" \
-  -l app.kubernetes.io/instance=virtualization-ai-401
+  -l lab.redhat.com/candidate=virtualization-ai-401
 ----
 
 == Prove

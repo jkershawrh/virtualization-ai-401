@@ -26,9 +26,13 @@ execution authority.
 ----
 export LAB_NAMESPACE="$(oc project -q)"
 export OPS_URL="http://virtualization-ai-401-operations-adapter:8080"
-export PRESENTATION_URL="https://$(oc get route virtualization-ai-401 -n "$LAB_NAMESPACE" -o jsonpath='{.spec.host}')"
+export PRESENTATION_URL="http://virtualization-ai-401-presentation:8080"
 printf 'namespace=%s\nadapter=%s\npresentation=%s\n' "$LAB_NAMESPACE" "$OPS_URL" "$PRESENTATION_URL"
 ----
+
+The terminal uses the namespace-local presentation Service for fixture retrieval.
+For the interactive presentation, use the embedded *Story* tab; this Service URL
+is not a link to open from your laptop. No TLS verification bypass is required.
 
 == Prove
 

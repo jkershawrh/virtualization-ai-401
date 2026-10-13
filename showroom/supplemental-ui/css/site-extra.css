@@ -1,0 +1,87 @@
+/* Intel x Red Hat branding overrides */
+
+.source-toolbox .paste-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  position: relative;
+  width: 2rem;
+}
+
+.paste-icon { fill: currentColor; height: 1rem; width: 1rem; }
+.paste-toast { display: none; }
+.paste-button.clicked .paste-toast {
+  background: #151515;
+  color: #fff;
+  display: block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  position: absolute;
+  right: 0;
+  top: -1.5rem;
+  white-space: nowrap;
+}
+.paste-button.error { color: #c9190b; }
+.paste-button:focus-visible { outline: 2px solid #0066cc; outline-offset: 2px; }
+
+.launchpad-showroom-navbar-brand {
+  align-items: center;
+  display: flex;
+  max-width: none;
+  width: 100%;
+}
+
+.launchpad-showroom-brand {
+  align-items: center;
+  display: inline-flex;
+  flex: none;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 1.25rem;
+  text-decoration: none;
+}
+
+.launchpad-showroom-brand:hover {
+  background: transparent;
+  text-decoration: none;
+}
+
+.launchpad-showroom-redhat {
+  display: block;
+  height: 2.1rem;
+  width: auto;
+}
+
+.launchpad-showroom-partnership {
+  color: #a3a3a3;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.launchpad-showroom-intel {
+  display: block;
+  height: 1.7rem;
+  width: auto;
+}
+
+@media (max-width: 640px) {
+  .launchpad-showroom-brand {
+    gap: 0.55rem;
+    min-height: 3rem;
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .launchpad-showroom-redhat {
+    height: 1.8rem;
+  }
+
+  .launchpad-showroom-intel {
+    height: 1.45rem;
+  }
+}
