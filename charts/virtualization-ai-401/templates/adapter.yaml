@@ -7,6 +7,9 @@ metadata:
     {{- include "virtualization-ai-401.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.operationsAdapter.replicas }}
+  # The evidence ledger is single-writer RWO storage. Release the old mount
+  # before scheduling a replacement, including a rollout restart.
+  strategy: {type: Recreate}
   selector: {matchLabels: {app.kubernetes.io/name: virtualization-ai-401-operations-adapter}}
   template:
     metadata:
